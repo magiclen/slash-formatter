@@ -1,0 +1,13 @@
+[package]
+name = "slash-formatter"
+version = "0.1.0"
+authors = ["Magic Len <len@magiclen.org>"]
+repository = "https://github.com/magiclen/slash-formatter"
+homepage = "https://magiclen.org/slash-formatter"
+keywords = ["slash", "url", "path", "string"]
+categories = ["value-formatting"]
+description= "This crate provides functions to deal with slashes in strings."
+readme = "README.md"
+license = "MIT"
+
+[dependencies]
