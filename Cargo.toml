@@ -1,6 +1,6 @@
 [package]
 name = "slash-formatter"
-version = "1.0.0"
+version = "1.0.1"
 authors = ["Magic Len <len@magiclen.org>"]
 repository = "https://github.com/magiclen/slash-formatter"
 homepage = "https://magiclen.org/slash-formatter"
@@ -9,5 +9,9 @@ categories = ["value-formatting"]
 description= "This crate provides functions to deal with slashes in strings."
 readme = "README.md"
 license = "MIT"
+
+[badges]
+travis-ci = { repository = "magiclen/slash-formatter", branch = "master" }
+appveyor = { repository = "magiclen/slash-formatter", branch = "master", service = "github" }
 
 [dependencies]
