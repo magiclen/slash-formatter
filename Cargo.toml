@@ -1,6 +1,6 @@
 [package]
 name = "slash-formatter"
-version = "2.1.0"
+version = "2.1.1"
 authors = ["Magic Len <len@magiclen.org>"]
 repository = "https://github.com/magiclen/slash-formatter"
 homepage = "https://magiclen.org/slash-formatter"

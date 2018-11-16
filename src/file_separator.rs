@@ -15,7 +15,9 @@ const FILE_SEPARATOR: char = '/';
 ///     assert_eq!("path", slash_formatter::delete_end_file_separator("path/"));
 /// }
 /// ```
-pub fn delete_end_file_separator(s: &str) -> &str {
+pub fn delete_end_file_separator<'a, S: ?Sized + AsRef<str> + 'a>(s: &'a S) -> &'a str {
+    let s = s.as_ref();
+
     let length = s.len();
 
     if length > 1 && s.ends_with(FILE_SEPARATOR) {
@@ -40,7 +42,9 @@ pub fn delete_end_file_separator(s: &str) -> &str {
 ///
 /// assert_eq!("path", s);
 /// ```
-pub fn delete_end_file_separator_owned(mut s: String) -> String {
+pub fn delete_end_file_separator_owned<S: Into<String>>(s: S) -> String {
+    let mut s = s.into();
+
     let length = s.len();
 
     if length > 1 && s.ends_with(FILE_SEPARATOR) {
@@ -84,7 +88,9 @@ pub fn delete_end_file_separator_mut(s: &mut String) {
 ///     assert_eq!("path", slash_formatter::delete_start_file_separator("/path"));
 /// }
 /// ```
-pub fn delete_start_file_separator(s: &str) -> &str {
+pub fn delete_start_file_separator<'a, S: ?Sized + AsRef<str> + 'a>(s: &'a S) -> &'a str {
+    let s = s.as_ref();
+
     let length = s.len();
 
     if length > 1 && s.starts_with(FILE_SEPARATOR) {
@@ -109,7 +115,9 @@ pub fn delete_start_file_separator(s: &str) -> &str {
 ///
 /// assert_eq!("path", s);
 /// ```
-pub fn delete_start_file_separator_owned(mut s: String) -> String {
+pub fn delete_start_file_separator_owned<S: Into<String>>(s: S) -> String {
+    let mut s = s.into();
+
     let length = s.len();
 
     if length > 1 && s.starts_with(FILE_SEPARATOR) {
@@ -153,8 +161,8 @@ pub fn delete_start_file_separator_mut(s: &mut String) {
 ///     assert_eq!("/path", slash_formatter::add_start_file_separator("path"));
 /// }
 /// ```
-pub fn add_start_file_separator(s: &str) -> String {
-    add_start_file_separator_owned(s.to_string())
+pub fn add_start_file_separator<S: AsRef<str>>(s: S) -> String {
+    add_start_file_separator_owned(s.as_ref())
 }
 
 /// Add an starting FILE_SEPARATOR into a string.
@@ -172,7 +180,9 @@ pub fn add_start_file_separator(s: &str) -> String {
 ///     assert_eq!("/path", s);
 /// }
 /// ```
-pub fn add_start_file_separator_owned(mut s: String) -> String {
+pub fn add_start_file_separator_owned<S: Into<String>>(s: S) -> String {
+    let mut s = s.into();
+
     if !s.starts_with(FILE_SEPARATOR) {
         s.insert(0, FILE_SEPARATOR);
     }
@@ -212,8 +222,8 @@ pub fn add_start_file_separator_mut(s: &mut String) {
 ///     assert_eq!("path/", slash_formatter::add_end_file_separator("path"));
 /// }
 /// ```
-pub fn add_end_file_separator(s: &str) -> String {
-    add_end_file_separator_owned(s.to_string())
+pub fn add_end_file_separator<S: AsRef<str>>(s: S) -> String {
+    add_end_file_separator_owned(s.as_ref())
 }
 
 /// Add an ending FILE_SEPARATOR into a string.
@@ -231,7 +241,9 @@ pub fn add_end_file_separator(s: &str) -> String {
 ///     assert_eq!("path/", s);
 /// }
 /// ```
-pub fn add_end_file_separator_owned(mut s: String) -> String {
+pub fn add_end_file_separator_owned<S: Into<String>>(s: S) -> String {
+    let mut s = s.into();
+
     if !s.ends_with(FILE_SEPARATOR) {
         s.push(FILE_SEPARATOR);
     }
@@ -271,8 +283,8 @@ pub fn add_end_file_separator_mut(s: &mut String) {
 ///     assert_eq!("path/to", slash_formatter::concat_with_file_separator("path", "to/"));
 /// }
 /// ```
-pub fn concat_with_file_separator(s1: &str, s2: &str) -> String {
-    concat_with_file_separator_owned(s1.to_string(), s2)
+pub fn concat_with_file_separator<S1: AsRef<str>, S2: AsRef<str>>(s1: S1, s2: S2) -> String {
+    concat_with_file_separator_owned(s1.as_ref(), s2)
 }
 
 /// Concatenate two strings with a FILE_SEPARATOR.
@@ -292,8 +304,8 @@ pub fn concat_with_file_separator(s1: &str, s2: &str) -> String {
 ///     assert_eq!("path/to", s);
 /// }
 /// ```
-pub fn concat_with_file_separator_owned(s1: String, s2: &str) -> String {
-    return delete_end_file_separator_owned(add_end_file_separator_owned(s1) + delete_start_file_separator(s2));
+pub fn concat_with_file_separator_owned<S1: Into<String>, S2: AsRef<str>>(s1: S1, s2: S2) -> String {
+    return delete_end_file_separator_owned(add_end_file_separator_owned(s1) + delete_start_file_separator(s2.as_ref()));
 }
 
 /// Concatenate two strings with a FILE_SEPARATOR.
@@ -313,8 +325,8 @@ pub fn concat_with_file_separator_owned(s1: String, s2: &str) -> String {
 ///     assert_eq!("path/to", s);
 /// }
 /// ```
-pub fn concat_with_file_separator_mut(s1: &mut String, s2: &str) {
+pub fn concat_with_file_separator_mut<S2: AsRef<str>>(s1: &mut String, s2: S2) {
     add_end_file_separator_mut(s1);
-    s1.push_str(delete_start_file_separator(s2));
+    s1.push_str(delete_start_file_separator(s2.as_ref()));
     delete_end_file_separator_mut(s1);
 }
