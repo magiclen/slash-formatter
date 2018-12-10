@@ -330,3 +330,71 @@ pub fn concat_with_file_separator_mut<S2: AsRef<str>>(s1: &mut String, s2: S2) {
     s1.push_str(delete_start_file_separator(s2.as_ref()));
     delete_end_file_separator_mut(s1);
 }
+
+/// Concatenate multiple strings with FILE_SEPARATORs.
+///
+/// ```
+/// #[macro_use] extern crate slash_formatter;
+///
+/// if cfg!(windows) {
+///     assert_eq!(r"path\to\file", concat_with_file_separator!("path", r"to\", r"\file\"));
+///
+///     let s = String::from("path");
+///
+///     let s = concat_with_file_separator!(s, r"to\", r"\file\");
+///
+///     assert_eq!(r"path\to\file", s);
+/// } else {
+///     assert_eq!("path/to/file", concat_with_file_separator!("path", "to/", "/file/"));
+///
+///     let s = String::from("path");
+///
+///     let s = concat_with_file_separator!(s, "to/", "/file/");
+///
+///     assert_eq!("path/to/file", s);
+/// }
+/// ```
+#[macro_export]
+macro_rules! concat_with_file_separator {
+    ($s:expr, $($sc:expr), *) => {
+        {
+            let mut s = $s.to_owned();
+
+            $(
+                ::slash_formatter::concat_with_file_separator_mut(&mut s, $sc);
+            )*
+
+            s
+        }
+    };
+}
+
+/// Concatenate multiple strings with FILE_SEPARATORs.
+///
+/// ```
+/// #[macro_use] extern crate slash_formatter;
+///
+/// if cfg!(windows) {
+///     let mut s = String::from("path");
+///
+///     concat_with_file_separator_mut!(&mut s, r"to\", r"\file\");
+///
+///     assert_eq!(r"path\to\file", s);
+/// } else {
+///     let mut s = String::from("path");
+///
+///     concat_with_file_separator_mut!(&mut s, "to/", "/file/");
+///
+///     assert_eq!("path/to/file", s);
+/// }
+/// ```
+#[macro_export]
+macro_rules! concat_with_file_separator_mut {
+    ($s:expr, $($sc:expr), *) => {
+        {
+            $(
+                ::slash_formatter::concat_with_file_separator_mut($s, $sc);
+            )*
+        }
+    };
+}
