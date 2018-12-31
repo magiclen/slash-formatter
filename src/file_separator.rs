@@ -77,7 +77,7 @@ pub fn delete_end_file_separator_mut(s: &mut String) {
     }
 }
 
-/// Delete an starting FILE_SEPARATOR in a string except for the FILE_SEPARATOR.
+/// Delete a starting FILE_SEPARATOR in a string except for the FILE_SEPARATOR.
 ///
 /// ```
 /// extern crate slash_formatter;
@@ -100,7 +100,7 @@ pub fn delete_start_file_separator<'a, S: ?Sized + AsRef<str> + 'a>(s: &'a S) ->
     }
 }
 
-/// Delete an starting FILE_SEPARATOR in a string except for the FILE_SEPARATOR.
+/// Delete a starting FILE_SEPARATOR in a string except for the FILE_SEPARATOR.
 ///
 /// ```
 /// extern crate slash_formatter;
@@ -127,7 +127,7 @@ pub fn delete_start_file_separator_owned<S: Into<String>>(s: S) -> String {
     return s;
 }
 
-/// Delete an starting FILE_SEPARATOR in a string except for the FILE_SEPARATOR.
+/// Delete a starting FILE_SEPARATOR in a string except for the FILE_SEPARATOR.
 ///
 /// ```
 /// extern crate slash_formatter;
@@ -150,7 +150,7 @@ pub fn delete_start_file_separator_mut(s: &mut String) {
     }
 }
 
-/// Add an starting FILE_SEPARATOR into a string.
+/// Add a starting FILE_SEPARATOR into a string.
 ///
 /// ```
 /// extern crate slash_formatter;
@@ -165,7 +165,7 @@ pub fn add_start_file_separator<S: AsRef<str>>(s: S) -> String {
     add_start_file_separator_owned(s.as_ref())
 }
 
-/// Add an starting FILE_SEPARATOR into a string.
+/// Add a starting FILE_SEPARATOR into a string.
 ///
 /// ```
 /// extern crate slash_formatter;
@@ -190,7 +190,7 @@ pub fn add_start_file_separator_owned<S: Into<String>>(s: S) -> String {
     return s;
 }
 
-/// Add an starting FILE_SEPARATOR into a string.
+/// Add a starting FILE_SEPARATOR into a string.
 ///
 /// ```
 /// extern crate slash_formatter;

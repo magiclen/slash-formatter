@@ -59,7 +59,7 @@ pub fn delete_end_backslash_mut(s: &mut String) {
     }
 }
 
-/// Delete an starting backslash in a string except for '\\'.
+/// Delete a starting backslash in a string except for '\\'.
 ///
 /// ```
 /// extern crate slash_formatter;
@@ -78,7 +78,7 @@ pub fn delete_start_backslash<'a, S: ?Sized + AsRef<str> + 'a>(s: &'a S) -> &'a 
     }
 }
 
-/// Delete an starting backslash in a string except for '\\'.
+/// Delete a starting backslash in a string except for '\\'.
 ///
 /// ```
 /// extern crate slash_formatter;
@@ -101,7 +101,7 @@ pub fn delete_start_backslash_owned<S: Into<String>>(s: S) -> String {
     return s;
 }
 
-/// Delete an starting backslash in a string except for '\\'.
+/// Delete a starting backslash in a string except for '\\'.
 ///
 /// ```
 /// extern crate slash_formatter;
@@ -120,7 +120,7 @@ pub fn delete_start_backslash_mut(s: &mut String) {
     }
 }
 
-/// Add an starting backslash into a string.
+/// Add a starting backslash into a string.
 ///
 /// ```
 /// extern crate slash_formatter;
@@ -131,7 +131,7 @@ pub fn add_start_backslash<S: AsRef<str>>(s: S) -> String {
     add_start_backslash_owned(s.as_ref())
 }
 
-/// Add an starting backslash into a string.
+/// Add a starting backslash into a string.
 ///
 /// ```
 /// extern crate slash_formatter;
@@ -152,7 +152,7 @@ pub fn add_start_backslash_owned<S: Into<String>>(s: S) -> String {
     return s;
 }
 
-/// Add an starting backslash into a string.
+/// Add a starting backslash into a string.
 ///
 /// ```
 /// extern crate slash_formatter;

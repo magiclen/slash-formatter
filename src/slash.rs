@@ -59,7 +59,7 @@ pub fn delete_end_slash_mut(s: &mut String) {
     }
 }
 
-/// Delete an starting slash in a string except for '/'.
+/// Delete a starting slash in a string except for '/'.
 ///
 /// ```
 /// extern crate slash_formatter;
@@ -78,7 +78,7 @@ pub fn delete_start_slash<'a, S: ?Sized + AsRef<str> + 'a>(s: &'a S) -> &'a str 
     }
 }
 
-/// Delete an starting slash in a string except for '/'.
+/// Delete a starting slash in a string except for '/'.
 ///
 /// ```
 /// extern crate slash_formatter;
@@ -101,7 +101,7 @@ pub fn delete_start_slash_owned<S: Into<String>>(s: S) -> String {
     return s;
 }
 
-/// Delete an starting slash in a string except for '/'.
+/// Delete a starting slash in a string except for '/'.
 ///
 /// ```
 /// extern crate slash_formatter;
@@ -120,7 +120,7 @@ pub fn delete_start_slash_mut(s: &mut String) {
     }
 }
 
-/// Add an starting slash into a string.
+/// Add a starting slash into a string.
 ///
 /// ```
 /// extern crate slash_formatter;
@@ -131,7 +131,7 @@ pub fn add_start_slash<S: AsRef<str>>(s: S) -> String {
     add_start_slash_owned(s.as_ref())
 }
 
-/// Add an starting slash into a string.
+/// Add a starting slash into a string.
 ///
 /// ```
 /// extern crate slash_formatter;
@@ -152,7 +152,7 @@ pub fn add_start_slash_owned<S: Into<String>>(s: S) -> String {
     return s;
 }
 
-/// Add an starting slash into a string.
+/// Add a starting slash into a string.
 ///
 /// ```
 /// extern crate slash_formatter;
