@@ -1,3 +1,5 @@
+use alloc::string::String;
+
 /// Delete an ending backslash in a string except for '\\'.
 ///
 /// ```

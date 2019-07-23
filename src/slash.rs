@@ -1,3 +1,5 @@
+use alloc::string::String;
+
 /// Delete an ending slash in a string except for '/'.
 ///
 /// ```

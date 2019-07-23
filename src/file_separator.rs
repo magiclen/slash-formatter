@@ -1,3 +1,5 @@
+use alloc::string::String;
+
 #[cfg(windows)]
 const FILE_SEPARATOR: char = '\\';
 

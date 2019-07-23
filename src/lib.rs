@@ -8,6 +8,10 @@ This crate provides functions to deal with slashes and backslashes in strings.
 To see examples, check out the documentation for each function.
 */
 
+#![no_std]
+
+extern crate alloc;
+
 mod slash;
 mod backslash;
 mod file_separator;
