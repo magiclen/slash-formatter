@@ -1,6 +1,6 @@
 [package]
 name = "slash-formatter"
-version = "2.2.2"
+version = "2.2.3"
 authors = ["Magic Len <len@magiclen.org>"]
 repository = "https://github.com/magiclen/slash-formatter"
 homepage = "https://magiclen.org/slash-formatter"
@@ -10,8 +10,8 @@ description= "This crate provides functions to deal with slashes and backslashes
 readme = "README.md"
 license = "MIT"
 
-[badges]
-travis-ci = { repository = "magiclen/slash-formatter", branch = "master" }
-appveyor = { repository = "magiclen/slash-formatter", branch = "master", service = "github" }
+[badges.travis-ci]
+repository = "magiclen/slash-formatter"
+branch = "master"
 
 [dependencies]
