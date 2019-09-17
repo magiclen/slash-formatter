@@ -13,9 +13,9 @@ pub fn delete_end_slash<'a, S: ?Sized + AsRef<str> + 'a>(s: &'a S) -> &'a str {
     let length = s.len();
 
     if length > 1 && s.ends_with('/') {
-        return &s[..length - 1];
+        &s[..length - 1]
     } else {
-        return s;
+        s
     }
 }
 
@@ -39,7 +39,7 @@ pub fn delete_end_slash_owned<S: Into<String>>(s: S) -> String {
         s.remove(length - 1);
     }
 
-    return s;
+    s
 }
 
 /// Delete an ending slash in a string except for '/'.
@@ -74,9 +74,9 @@ pub fn delete_start_slash<'a, S: ?Sized + AsRef<str> + 'a>(s: &'a S) -> &'a str 
     let length = s.len();
 
     if length > 1 && s.starts_with('/') {
-        return &s[1..];
+        &s[1..]
     } else {
-        return s;
+        s
     }
 }
 
@@ -100,7 +100,7 @@ pub fn delete_start_slash_owned<S: Into<String>>(s: S) -> String {
         s.remove(0);
     }
 
-    return s;
+    s
 }
 
 /// Delete a starting slash in a string except for '/'.
@@ -151,7 +151,7 @@ pub fn add_start_slash_owned<S: Into<String>>(s: S) -> String {
         s.insert(0, '/');
     }
 
-    return s;
+    s
 }
 
 /// Add a starting slash into a string.
@@ -200,7 +200,7 @@ pub fn add_end_slash_owned<S: Into<String>>(s: S) -> String {
         s.push('/');
     }
 
-    return s;
+    s
 }
 
 /// Add an ending slash into a string.
@@ -243,7 +243,7 @@ pub fn concat_with_slash<S1: AsRef<str>, S2: AsRef<str>>(s1: S1, s2: S2) -> Stri
 /// assert_eq!("path/to", s);
 /// ```
 pub fn concat_with_slash_owned<S1: Into<String>, S2: AsRef<str>>(s1: S1, s2: S2) -> String {
-    return delete_end_slash_owned(add_end_slash_owned(s1) + delete_start_slash(s2.as_ref()));
+    delete_end_slash_owned(add_end_slash_owned(s1) + delete_start_slash(s2.as_ref()))
 }
 
 /// Concatenate two strings with a slash.
@@ -266,7 +266,8 @@ pub fn concat_with_slash_mut<S2: AsRef<str>>(s1: &mut String, s2: S2) {
 /// Concatenate multiple strings with slashes.
 ///
 /// ```
-/// #[macro_use] extern crate slash_formatter;
+/// #[macro_use]
+/// extern crate slash_formatter;
 ///
 /// assert_eq!("path/to/file", concat_with_slash!("path", "to/", "/file/"));
 ///
@@ -294,7 +295,8 @@ macro_rules! concat_with_slash {
 /// Concatenate multiple strings with slashes.
 ///
 /// ```
-/// #[macro_use] extern crate slash_formatter;
+/// #[macro_use]
+/// extern crate slash_formatter;
 ///
 /// let mut s = String::from("path");
 ///

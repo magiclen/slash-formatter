@@ -1,7 +1,8 @@
 [package]
 name = "slash-formatter"
-version = "2.2.3"
+version = "2.2.4"
 authors = ["Magic Len <len@magiclen.org>"]
+edition = "2018"
 repository = "https://github.com/magiclen/slash-formatter"
 homepage = "https://magiclen.org/slash-formatter"
 keywords = ["slash", "url", "path", "string", "backslash"]

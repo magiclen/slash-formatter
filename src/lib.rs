@@ -12,10 +12,10 @@ To see examples, check out the documentation for each function.
 
 extern crate alloc;
 
-mod slash;
 mod backslash;
 mod file_separator;
+mod slash;
 
-pub use slash::*;
 pub use backslash::*;
 pub use file_separator::*;
+pub use slash::*;
