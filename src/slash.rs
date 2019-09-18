@@ -263,20 +263,21 @@ pub fn concat_with_slash_mut<S2: AsRef<str>>(s1: &mut String, s2: S2) {
     delete_end_slash_mut(s1);
 }
 
-/// Concatenate multiple strings with slashes.
-///
-/// ```
-/// #[macro_use]
-/// extern crate slash_formatter;
-///
-/// assert_eq!("path/to/file", concat_with_slash!("path", "to/", "/file/"));
-///
-/// let s = String::from("path");
-///
-/// let s = concat_with_slash!(s, "to/", "/file/");
-///
-/// assert_eq!("path/to/file", s);
-/// ```
+/**
+Concatenate multiple strings with slashes.
+
+```
+#[macro_use] extern crate slash_formatter;
+
+assert_eq!("path/to/file", concat_with_slash!("path", "to/", "/file/"));
+
+let s = String::from("path");
+
+let s = concat_with_slash!(s, "to/", "/file/");
+
+assert_eq!("path/to/file", s);
+```
+*/
 #[macro_export]
 macro_rules! concat_with_slash {
     ($s:expr, $($sc:expr), *) => {
@@ -292,18 +293,19 @@ macro_rules! concat_with_slash {
     };
 }
 
-/// Concatenate multiple strings with slashes.
-///
-/// ```
-/// #[macro_use]
-/// extern crate slash_formatter;
-///
-/// let mut s = String::from("path");
-///
-/// concat_with_slash_mut!(&mut s, "to/", "/file/");
-///
-/// assert_eq!("path/to/file", s);
-/// ```
+/**
+Concatenate multiple strings with slashes.
+
+```
+#[macro_use] extern crate slash_formatter;
+
+let mut s = String::from("path");
+
+concat_with_slash_mut!(&mut s, "to/", "/file/");
+
+assert_eq!("path/to/file", s);
+```
+*/
 #[macro_export]
 macro_rules! concat_with_slash_mut {
     ($s:expr, $($sc:expr), *) => {
