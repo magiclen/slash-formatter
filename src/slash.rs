@@ -7,6 +7,7 @@ use alloc::string::String;
 ///
 /// assert_eq!("path", slash_formatter::delete_end_slash("path/"));
 /// ```
+#[inline]
 pub fn delete_end_slash<'a, S: ?Sized + AsRef<str> + 'a>(s: &'a S) -> &'a str {
     let s = s.as_ref();
 
@@ -30,6 +31,7 @@ pub fn delete_end_slash<'a, S: ?Sized + AsRef<str> + 'a>(s: &'a S) -> &'a str {
 ///
 /// assert_eq!("path", s);
 /// ```
+#[inline]
 pub fn delete_end_slash_owned<S: Into<String>>(s: S) -> String {
     let mut s = s.into();
 
@@ -53,6 +55,7 @@ pub fn delete_end_slash_owned<S: Into<String>>(s: S) -> String {
 ///
 /// assert_eq!("path", s);
 /// ```
+#[inline]
 pub fn delete_end_slash_mut(s: &mut String) {
     let length = s.len();
 
@@ -68,6 +71,7 @@ pub fn delete_end_slash_mut(s: &mut String) {
 ///
 /// assert_eq!("path", slash_formatter::delete_start_slash("/path"));
 /// ```
+#[inline]
 pub fn delete_start_slash<'a, S: ?Sized + AsRef<str> + 'a>(s: &'a S) -> &'a str {
     let s = s.as_ref();
 
@@ -91,6 +95,7 @@ pub fn delete_start_slash<'a, S: ?Sized + AsRef<str> + 'a>(s: &'a S) -> &'a str 
 ///
 /// assert_eq!("path", s);
 /// ```
+#[inline]
 pub fn delete_start_slash_owned<S: Into<String>>(s: S) -> String {
     let mut s = s.into();
 
@@ -114,6 +119,7 @@ pub fn delete_start_slash_owned<S: Into<String>>(s: S) -> String {
 ///
 /// assert_eq!("path", s);
 /// ```
+#[inline]
 pub fn delete_start_slash_mut(s: &mut String) {
     let length = s.len();
 
@@ -129,6 +135,7 @@ pub fn delete_start_slash_mut(s: &mut String) {
 ///
 /// assert_eq!("/path", slash_formatter::add_start_slash("path"));
 /// ```
+#[inline]
 pub fn add_start_slash<S: AsRef<str>>(s: S) -> String {
     add_start_slash_owned(s.as_ref())
 }
@@ -144,6 +151,7 @@ pub fn add_start_slash<S: AsRef<str>>(s: S) -> String {
 ///
 /// assert_eq!("/path", s);
 /// ```
+#[inline]
 pub fn add_start_slash_owned<S: Into<String>>(s: S) -> String {
     let mut s = s.into();
 
@@ -165,6 +173,7 @@ pub fn add_start_slash_owned<S: Into<String>>(s: S) -> String {
 ///
 /// assert_eq!("/path", s);
 /// ```
+#[inline]
 pub fn add_start_slash_mut(s: &mut String) {
     if !s.starts_with('/') {
         s.insert(0, '/');
@@ -178,6 +187,7 @@ pub fn add_start_slash_mut(s: &mut String) {
 ///
 /// assert_eq!("path/", slash_formatter::add_end_slash("path"));
 /// ```
+#[inline]
 pub fn add_end_slash<S: AsRef<str>>(s: S) -> String {
     add_end_slash_owned(s.as_ref())
 }
@@ -193,6 +203,7 @@ pub fn add_end_slash<S: AsRef<str>>(s: S) -> String {
 ///
 /// assert_eq!("path/", s);
 /// ```
+#[inline]
 pub fn add_end_slash_owned<S: Into<String>>(s: S) -> String {
     let mut s = s.into();
 
@@ -214,6 +225,7 @@ pub fn add_end_slash_owned<S: Into<String>>(s: S) -> String {
 ///
 /// assert_eq!("path/", s);
 /// ```
+#[inline]
 pub fn add_end_slash_mut(s: &mut String) {
     if !s.ends_with('/') {
         s.push('/');
@@ -227,6 +239,7 @@ pub fn add_end_slash_mut(s: &mut String) {
 ///
 /// assert_eq!("path/to", slash_formatter::concat_with_slash("path", "to/"));
 /// ```
+#[inline]
 pub fn concat_with_slash<S1: AsRef<str>, S2: AsRef<str>>(s1: S1, s2: S2) -> String {
     concat_with_slash_owned(s1.as_ref(), s2)
 }
@@ -242,6 +255,7 @@ pub fn concat_with_slash<S1: AsRef<str>, S2: AsRef<str>>(s1: S1, s2: S2) -> Stri
 ///
 /// assert_eq!("path/to", s);
 /// ```
+#[inline]
 pub fn concat_with_slash_owned<S1: Into<String>, S2: AsRef<str>>(s1: S1, s2: S2) -> String {
     delete_end_slash_owned(add_end_slash_owned(s1) + delete_start_slash(s2.as_ref()))
 }
@@ -257,6 +271,7 @@ pub fn concat_with_slash_owned<S1: Into<String>, S2: AsRef<str>>(s1: S1, s2: S2)
 ///
 /// assert_eq!("path/to", s);
 /// ```
+#[inline]
 pub fn concat_with_slash_mut<S2: AsRef<str>>(s1: &mut String, s2: S2) {
     add_end_slash_mut(s1);
     s1.push_str(delete_start_slash(s2.as_ref()));
@@ -285,7 +300,7 @@ macro_rules! concat_with_slash {
             let mut s = $s.to_owned();
 
             $(
-                ::slash_formatter::concat_with_slash_mut(&mut s, $sc);
+                $crate::concat_with_slash_mut(&mut s, $sc);
             )*
 
             s
@@ -311,7 +326,7 @@ macro_rules! concat_with_slash_mut {
     ($s:expr, $($sc:expr), *) => {
         {
             $(
-                ::slash_formatter::concat_with_slash_mut($s, $sc);
+                $crate::concat_with_slash_mut($s, $sc);
             )*
         }
     };
