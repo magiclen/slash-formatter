@@ -239,11 +239,9 @@ macro_rules! slash_in_place {
         '/'
     };
     ($s:expr $(, $sc:expr)* $(,)*) => {
-        {
-            $(
-                $crate::concat_with_slash_in_place($s, $sc);
-            )*
-        }
+        $(
+            $crate::concat_with_slash_in_place($s, $sc);
+        )*
     };
 }
 

@@ -204,7 +204,10 @@ assert_eq!("path\\to\\file", s);
 */
 #[macro_export]
 macro_rules! backslash {
-    ($s:expr, $($sc:expr), *) => {
+    () => {
+        '\\'
+    };
+    ($s:expr $(, $sc:expr)* $(,)*) => {
         {
             let mut s = $s.to_owned();
 
@@ -232,12 +235,13 @@ assert_eq!("path\\to\\file", s);
 */
 #[macro_export]
 macro_rules! backslash_in_place {
-    ($s:expr, $($sc:expr), *) => {
-        {
-            $(
-                $crate::concat_with_backslash_in_place($s, $sc);
-            )*
-        }
+    () => {
+        '\\'
+    };
+    ($s:expr $(, $sc:expr)* $(,)*) => {
+        $(
+            $crate::concat_with_backslash_in_place($s, $sc);
+        )*
     };
 }
 
