@@ -245,30 +245,15 @@ macro_rules! slash_in_place {
     };
 }
 
-/**
-Concatenates literals into a static string slice separated by a slash. Prefixes and suffixes can also be added.
-
-```rust
-#[macro_use] extern crate slash_formatter;
-
-assert_eq!("test/10/b/true", concat_with_slash!("test", 10, 'b', true));
-```
-*/
-#[macro_export]
-macro_rules! concat_with_slash {
-    ($($e:expr),* $(,)*) => {
-        $crate::concat_with::concat!(with "/" $(, $e)*)
-    };
-    (prefix $p:expr $(, $e:expr)* $(,)*) => {
-        $crate::concat_with::concat!(with "/", prefix $p $(, $e)*)
-    };
-    (suffix $s:expr $(, $e:expr)* $(,)*) => {
-        $crate::concat_with::concat!(with "/", suffix $s $(, $e)*)
-    };
-    (prefix $p:expr, suffix $s:expr $(, $e:expr)* $(,)*) => {
-        $crate::concat_with::concat!(with "/", prefix $p, suffix $s $(, $e)*)
-    };
-    (suffix $s:expr, prefix $p:expr $(, $e:expr)* $(,)*) => {
-        $crate::concat_with::concat!(with "/", prefix $p, suffix $s $(, $e)*)
-    };
+concat_impl! {
+    #[macro_export]
+    /// Concatenates literals into a static string slice separated by a slash. Prefixes and suffixes can also be added.
+    ///
+    /// ```rust
+    /// #[macro_use] extern crate slash_formatter;
+    ///
+    /// assert_eq!("test/10/b/true", concat_with_slash!("test", 10, 'b', true));
+    /// ```
+    /// */
+    concat_with_slash => "/"
 }

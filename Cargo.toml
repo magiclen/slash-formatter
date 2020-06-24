@@ -16,4 +16,4 @@ repository = "magiclen/slash-formatter"
 branch = "master"
 
 [dependencies]
-concat-with = "0.2"
+concat-with = "0.2.3"

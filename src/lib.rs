@@ -13,7 +13,8 @@ To see examples, check out the documentation for each function.
 #[macro_use]
 extern crate alloc;
 
-pub extern crate concat_with;
+#[macro_use]
+extern crate concat_with;
 
 mod backslash;
 mod file_separator;
@@ -22,3 +23,6 @@ mod slash;
 pub use backslash::*;
 pub use file_separator::*;
 pub use slash::*;
+
+#[doc(hidden)]
+pub use concat_with::{concat, concat_impl};
