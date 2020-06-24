@@ -1,6 +1,6 @@
 [package]
 name = "slash-formatter"
-version = "2.2.6"
+version = "3.0.0"
 authors = ["Magic Len <len@magiclen.org>"]
 edition = "2018"
 repository = "https://github.com/magiclen/slash-formatter"
@@ -16,3 +16,4 @@ repository = "magiclen/slash-formatter"
 branch = "master"
 
 [dependencies]
+concat-with = "0.2"

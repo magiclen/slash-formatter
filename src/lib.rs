@@ -10,7 +10,10 @@ To see examples, check out the documentation for each function.
 
 #![no_std]
 
+#[macro_use]
 extern crate alloc;
+
+pub extern crate concat_with;
 
 mod backslash;
 mod file_separator;

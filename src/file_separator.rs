@@ -1,426 +1,371 @@
+use alloc::borrow::Cow;
 use alloc::string::String;
 
-#[cfg(windows)]
-const FILE_SEPARATOR: char = '\\';
-
-#[cfg(not(windows))]
-const FILE_SEPARATOR: char = '/';
-
-/// Delete an ending FILE_SEPARATOR in a string except for the FILE_SEPARATOR.
+/// Delete an ending `FILE_SEPARATOR` a string except for just `FILE_SEPARATOR`.
 ///
 /// ```
 /// extern crate slash_formatter;
 ///
-/// if cfg!(windows) {
-///     assert_eq!("path", slash_formatter::delete_end_file_separator(r"path\"));
-/// } else {
-///     assert_eq!("path", slash_formatter::delete_end_file_separator("path/"));
-/// }
+/// assert_eq!(
+///     "path",
+///     slash_formatter::delete_end_file_separator(concat!(
+///         "path",
+///         slash_formatter::file_separator!()
+///     ))
+/// );
 /// ```
 #[inline]
-pub fn delete_end_file_separator<'a, S: ?Sized + AsRef<str> + 'a>(s: &'a S) -> &'a str {
-    let s = s.as_ref();
+pub fn delete_end_file_separator<S: ?Sized + AsRef<str>>(s: &S) -> &str {
+    #[cfg(unix)]
+    {
+        crate::delete_end_slash(s)
+    }
 
-    let length = s.len();
-
-    if length > 1 && s.ends_with(FILE_SEPARATOR) {
-        &s[..length - 1]
-    } else {
-        s
+    #[cfg(windows)]
+    {
+        crate::delete_end_backslash(s)
     }
 }
 
-/// Delete an ending FILE_SEPARATOR in a string except for the FILE_SEPARATOR.
+/// Delete an ending `FILE_SEPARATOR` a string except for just `FILE_SEPARATOR`.
 ///
 /// ```
 /// extern crate slash_formatter;
 ///
-/// let s = if cfg!(windows) {
-///     String::from(r"path\")
-/// } else {
-///     String::from("path/")
-/// };
+/// let mut s = String::from(concat!("path", slash_formatter::file_separator!()));
 ///
-/// let s = slash_formatter::delete_end_file_separator_owned(s);
+/// slash_formatter::delete_end_file_separator_in_place(&mut s);
 ///
 /// assert_eq!("path", s);
 /// ```
 #[inline]
-pub fn delete_end_file_separator_owned<S: Into<String>>(s: S) -> String {
-    let mut s = s.into();
-
-    let length = s.len();
-
-    if length > 1 && s.ends_with(FILE_SEPARATOR) {
-        s.remove(length - 1);
+pub fn delete_end_file_separator_in_place(s: &mut String) {
+    #[cfg(unix)]
+    {
+        crate::delete_end_slash_in_place(s)
     }
 
-    s
+    #[cfg(windows)]
+    {
+        crate::delete_end_backslash_in_place(s)
+    }
 }
 
-/// Delete an ending FILE_SEPARATOR in a string except for the FILE_SEPARATOR.
+/// Delete a starting `FILE_SEPARATOR` a string except for just `FILE_SEPARATOR`.
 ///
 /// ```
 /// extern crate slash_formatter;
 ///
-/// let mut s = if cfg!(windows) {
-///     String::from(r"path\")
-/// } else {
-///     String::from("path/")
-/// };
+/// assert_eq!(
+///     "path",
+///     slash_formatter::delete_start_file_separator(concat!(
+///         slash_formatter::file_separator!(),
+///         "path"
+///     ))
+/// );
+/// ```
+#[inline]
+pub fn delete_start_file_separator<S: ?Sized + AsRef<str>>(s: &S) -> &str {
+    #[cfg(unix)]
+    {
+        crate::delete_start_slash(s)
+    }
+
+    #[cfg(windows)]
+    {
+        crate::delete_start_backslash(s)
+    }
+}
+
+/// Delete a starting `FILE_SEPARATOR` a string except for just `FILE_SEPARATOR`.
 ///
-/// slash_formatter::delete_end_file_separator_mut(&mut s);
+/// ```
+/// extern crate slash_formatter;
+///
+/// let mut s = String::from(concat!(slash_formatter::file_separator!(), "path"));
+///
+/// slash_formatter::delete_start_file_separator_in_place(&mut s);
 ///
 /// assert_eq!("path", s);
 /// ```
 #[inline]
-pub fn delete_end_file_separator_mut(s: &mut String) {
-    let length = s.len();
+pub fn delete_start_file_separator_in_place(s: &mut String) {
+    #[cfg(unix)]
+    {
+        crate::delete_start_slash_in_place(s)
+    }
 
-    if length > 1 && s.ends_with(FILE_SEPARATOR) {
-        s.remove(length - 1);
+    #[cfg(windows)]
+    {
+        crate::delete_start_backslash_in_place(s)
     }
 }
 
-/// Delete a starting FILE_SEPARATOR in a string except for the FILE_SEPARATOR.
+/// Add a starting `FILE_SEPARATOR` into a string.
 ///
 /// ```
 /// extern crate slash_formatter;
 ///
-/// if cfg!(windows) {
-///     assert_eq!("path", slash_formatter::delete_start_file_separator(r"\path"));
-/// } else {
-///     assert_eq!("path", slash_formatter::delete_start_file_separator("/path"));
-/// }
+/// assert_eq!(
+///     concat!(slash_formatter::file_separator!(), "path"),
+///     slash_formatter::add_start_file_separator("path")
+/// );
 /// ```
 #[inline]
-pub fn delete_start_file_separator<'a, S: ?Sized + AsRef<str> + 'a>(s: &'a S) -> &'a str {
-    let s = s.as_ref();
+pub fn add_start_file_separator<S: ?Sized + AsRef<str>>(s: &S) -> Cow<str> {
+    #[cfg(unix)]
+    {
+        crate::add_start_slash(s)
+    }
 
-    let length = s.len();
-
-    if length > 1 && s.starts_with(FILE_SEPARATOR) {
-        &s[1..]
-    } else {
-        s
+    #[cfg(windows)]
+    {
+        crate::add_start_backslash(s)
     }
 }
 
-/// Delete a starting FILE_SEPARATOR in a string except for the FILE_SEPARATOR.
-///
-/// ```
-/// extern crate slash_formatter;
-///
-/// let s = if cfg!(windows) {
-///     String::from(r"\path")
-/// } else {
-///     String::from("/path")
-/// };
-///
-/// let s = slash_formatter::delete_start_file_separator_owned(s);
-///
-/// assert_eq!("path", s);
-/// ```
-#[inline]
-pub fn delete_start_file_separator_owned<S: Into<String>>(s: S) -> String {
-    let mut s = s.into();
-
-    let length = s.len();
-
-    if length > 1 && s.starts_with(FILE_SEPARATOR) {
-        s.remove(0);
-    }
-
-    s
-}
-
-/// Delete a starting FILE_SEPARATOR in a string except for the FILE_SEPARATOR.
-///
-/// ```
-/// extern crate slash_formatter;
-///
-/// let mut s = if cfg!(windows) {
-///     String::from(r"\path")
-/// } else {
-///     String::from("/path")
-/// };
-///
-/// slash_formatter::delete_start_file_separator_mut(&mut s);
-///
-/// assert_eq!("path", s);
-/// ```
-#[inline]
-pub fn delete_start_file_separator_mut(s: &mut String) {
-    let length = s.len();
-
-    if length > 1 && s.starts_with(FILE_SEPARATOR) {
-        s.remove(0);
-    }
-}
-
-/// Add a starting FILE_SEPARATOR into a string.
-///
-/// ```
-/// extern crate slash_formatter;
-///
-/// if cfg!(windows) {
-///     assert_eq!(r"\path", slash_formatter::add_start_file_separator("path"));
-/// } else {
-///     assert_eq!("/path", slash_formatter::add_start_file_separator("path"));
-/// }
-/// ```
-#[inline]
-pub fn add_start_file_separator<S: AsRef<str>>(s: S) -> String {
-    add_start_file_separator_owned(s.as_ref())
-}
-
-/// Add a starting FILE_SEPARATOR into a string.
-///
-/// ```
-/// extern crate slash_formatter;
-///
-/// let s = String::from("path");
-///
-/// let s = slash_formatter::add_start_file_separator_owned(s);
-///
-/// if cfg!(windows) {
-///     assert_eq!(r"\path", s);
-/// } else {
-///     assert_eq!("/path", s);
-/// }
-/// ```
-#[inline]
-pub fn add_start_file_separator_owned<S: Into<String>>(s: S) -> String {
-    let mut s = s.into();
-
-    if !s.starts_with(FILE_SEPARATOR) {
-        s.insert(0, FILE_SEPARATOR);
-    }
-
-    s
-}
-
-/// Add a starting FILE_SEPARATOR into a string.
+/// Add a starting `FILE_SEPARATOR` into a string.
 ///
 /// ```
 /// extern crate slash_formatter;
 ///
 /// let mut s = String::from("path");
 ///
-/// slash_formatter::add_start_file_separator_mut(&mut s);
+/// slash_formatter::add_start_file_separator_in_place(&mut s);
 ///
-/// if cfg!(windows) {
-///     assert_eq!(r"\path", s);
-/// } else {
-///     assert_eq!("/path", s);
-/// }
+/// assert_eq!(concat!(slash_formatter::file_separator!(), "path"), s);
 /// ```
 #[inline]
-pub fn add_start_file_separator_mut(s: &mut String) {
-    if !s.starts_with(FILE_SEPARATOR) {
-        s.insert(0, FILE_SEPARATOR);
+pub fn add_start_file_separator_in_place(s: &mut String) {
+    #[cfg(unix)]
+    {
+        crate::add_start_slash_in_place(s)
+    }
+
+    #[cfg(windows)]
+    {
+        crate::add_start_backslash_in_place(s)
     }
 }
 
-/// Add an ending FILE_SEPARATOR into a string.
+/// Add an ending `FILE_SEPARATOR` into a string.
 ///
 /// ```
 /// extern crate slash_formatter;
 ///
-/// if cfg!(windows) {
-///     assert_eq!(r"path\", slash_formatter::add_end_file_separator("path"));
-/// } else {
-///     assert_eq!("path/", slash_formatter::add_end_file_separator("path"));
-/// }
+/// assert_eq!(
+///     concat!("path", slash_formatter::file_separator!()),
+///     slash_formatter::add_end_file_separator("path")
+/// );
 /// ```
 #[inline]
-pub fn add_end_file_separator<S: AsRef<str>>(s: S) -> String {
-    add_end_file_separator_owned(s.as_ref())
-}
-
-/// Add an ending FILE_SEPARATOR into a string.
-///
-/// ```
-/// extern crate slash_formatter;
-///
-/// let s = String::from("path");
-///
-/// let s = slash_formatter::add_end_file_separator_owned(s);
-///
-/// if cfg!(windows) {
-///     assert_eq!(r"path\", s);
-/// } else {
-///     assert_eq!("path/", s);
-/// }
-/// ```
-#[inline]
-pub fn add_end_file_separator_owned<S: Into<String>>(s: S) -> String {
-    let mut s = s.into();
-
-    if !s.ends_with(FILE_SEPARATOR) {
-        s.push(FILE_SEPARATOR);
+pub fn add_end_file_separator<S: ?Sized + AsRef<str>>(s: &S) -> Cow<str> {
+    #[cfg(unix)]
+    {
+        crate::add_end_slash(s)
     }
 
-    s
+    #[cfg(windows)]
+    {
+        crate::add_end_backslash(s)
+    }
 }
 
-/// Add an ending FILE_SEPARATOR into a string.
+/// Add an ending `FILE_SEPARATOR` into a string.
 ///
 /// ```
 /// extern crate slash_formatter;
 ///
 /// let mut s = String::from("path");
 ///
-/// slash_formatter::add_end_file_separator_mut(&mut s);
+/// slash_formatter::add_end_file_separator_in_place(&mut s);
 ///
-/// if cfg!(windows) {
-///     assert_eq!(r"path\", s);
-/// } else {
-///     assert_eq!("path/", s);
-/// }
+/// assert_eq!(concat!("path", slash_formatter::file_separator!()), s);
 /// ```
 #[inline]
-pub fn add_end_file_separator_mut(s: &mut String) {
-    if !s.ends_with(FILE_SEPARATOR) {
-        s.push(FILE_SEPARATOR);
+pub fn add_end_file_separator_in_place(s: &mut String) {
+    #[cfg(unix)]
+    {
+        crate::add_end_slash_in_place(s)
+    }
+
+    #[cfg(windows)]
+    {
+        crate::add_end_backslash_in_place(s)
     }
 }
 
-/// Concatenate two strings with a FILE_SEPARATOR.
+/// Concatenate two strings with `FILE_SEPARATOR`.
 ///
 /// ```
 /// extern crate slash_formatter;
 ///
-/// if cfg!(windows) {
-///     assert_eq!(r"path\to", slash_formatter::concat_with_file_separator("path", r"to\"));
-/// } else {
-///     assert_eq!("path/to", slash_formatter::concat_with_file_separator("path", "to/"));
-/// }
+/// assert_eq!(
+///     concat!("path", slash_formatter::file_separator!(), "to"),
+///     slash_formatter::concat_with_file_separator(
+///         "path",
+///         concat!("to", slash_formatter::file_separator!())
+///     )
+/// );
 /// ```
 #[inline]
-pub fn concat_with_file_separator<S1: AsRef<str>, S2: AsRef<str>>(s1: S1, s2: S2) -> String {
-    concat_with_file_separator_owned(s1.as_ref(), s2)
+pub fn concat_with_file_separator<S1: Into<String>, S2: AsRef<str>>(s1: S1, s2: S2) -> String {
+    #[cfg(unix)]
+    {
+        crate::concat_with_slash(s1, s2)
+    }
+
+    #[cfg(windows)]
+    {
+        crate::concat_with_backslash(s1, s2)
+    }
 }
 
-/// Concatenate two strings with a FILE_SEPARATOR.
-///
-/// ```
-/// extern crate slash_formatter;
-///
-/// let s = String::from("path");
-///
-/// if cfg!(windows) {
-///     let s = slash_formatter::concat_with_file_separator_owned(s, r"to\");
-///
-///     assert_eq!(r"path\to", s);
-/// } else {
-///     let s = slash_formatter::concat_with_file_separator_owned(s, "to/");
-///
-///     assert_eq!("path/to", s);
-/// }
-/// ```
-#[inline]
-pub fn concat_with_file_separator_owned<S1: Into<String>, S2: AsRef<str>>(
-    s1: S1,
-    s2: S2,
-) -> String {
-    delete_end_file_separator_owned(
-        add_end_file_separator_owned(s1) + delete_start_file_separator(s2.as_ref()),
-    )
-}
-
-/// Concatenate two strings with a FILE_SEPARATOR.
+/// Concatenate two strings with `FILE_SEPARATOR`.
 ///
 /// ```
 /// extern crate slash_formatter;
 ///
 /// let mut s = String::from("path");
 ///
-/// if cfg!(windows) {
-///     slash_formatter::concat_with_file_separator_mut(&mut s, r"to\");
+/// slash_formatter::concat_with_file_separator_in_place(
+///     &mut s,
+///     concat!("to", slash_formatter::file_separator!()),
+/// );
 ///
-///     assert_eq!(r"path\to", s);
-/// } else {
-///     slash_formatter::concat_with_file_separator_mut(&mut s, "to/");
-///
-///     assert_eq!("path/to", s);
-/// }
+/// assert_eq!(concat!("path", slash_formatter::file_separator!(), "to"), s);
 /// ```
 #[inline]
-pub fn concat_with_file_separator_mut<S2: AsRef<str>>(s1: &mut String, s2: S2) {
-    add_end_file_separator_mut(s1);
-    s1.push_str(delete_start_file_separator(s2.as_ref()));
-    delete_end_file_separator_mut(s1);
+pub fn concat_with_file_separator_in_place<S2: AsRef<str>>(s1: &mut String, s2: S2) {
+    #[cfg(unix)]
+    {
+        crate::concat_with_slash_in_place(s1, s2)
+    }
+
+    #[cfg(windows)]
+    {
+        crate::concat_with_backslash_in_place(s1, s2)
+    }
 }
 
+#[cfg(unix)]
 /**
-Concatenate multiple strings with FILE_SEPARATORs.
+Concatenate multiple strings with `FILE_SEPARATOR`. It can also be used to get the literal `FILE_SEPARATOR`.
 
 ```
 #[macro_use] extern crate slash_formatter;
 
-if cfg!(windows) {
-    assert_eq!(r"path\to\file", concat_with_file_separator!("path", r"to\", r"\file\"));
+assert_eq!(slash_formatter::concat_with_file_separator!("path", "to", "file"), file_separator!("path", concat!("to", slash_formatter::file_separator!()), concat!(slash_formatter::file_separator!(), "file", slash_formatter::file_separator!())));
 
-    let s = String::from("path");
+let s = String::from("path");
 
-    let s = concat_with_file_separator!(s, r"to\", r"\file\");
+let s = file_separator!(s, concat!("to", slash_formatter::file_separator!()), concat!(slash_formatter::file_separator!(), "file", slash_formatter::file_separator!()));
 
-    assert_eq!(r"path\to\file", s);
-} else {
-    assert_eq!("path/to/file", concat_with_file_separator!("path", "to/", "/file/"));
-
-    let s = String::from("path");
-
-    let s = concat_with_file_separator!(s, "to/", "/file/");
-
-    assert_eq!("path/to/file", s);
+assert_eq!(slash_formatter::concat_with_file_separator!("path", "to", "file"), s);
+```
+*/
+#[macro_export]
+macro_rules! file_separator {
+    ($($t:tt)*) => {
+        $crate::slash!($($t)*)
+    };
 }
+
+#[cfg(windows)]
+/**
+Concatenate multiple strings with `FILE_SEPARATOR`. It can also be used to get the literal `FILE_SEPARATOR`.
+
+```
+#[macro_use] extern crate slash_formatter;
+
+assert_eq!(slash_formatter::concat_with_file_separator!("path", "to", "file"), file_separator!("path", concat!("to", slash_formatter::file_separator!()), concat!(slash_formatter::file_separator!(), "file", slash_formatter::file_separator!())));
+
+let s = String::from("path");
+
+let s = file_separator!(s, concat!("to", slash_formatter::file_separator!()), concat!(slash_formatter::file_separator!(), "file", slash_formatter::file_separator!()));
+
+assert_eq!(slash_formatter::concat_with_file_separator!("path", "to", "file"), s);
+```
+*/
+#[macro_export]
+macro_rules! file_separator {
+    ($($t:tt)*) => {
+        $crate::backslash!($($t)*)
+    };
+}
+
+#[cfg(unix)]
+/**
+Concatenate multiple strings with `FILE_SEPARATOR`. It can also be used to get the literal `FILE_SEPARATOR`.
+
+```
+#[macro_use] extern crate slash_formatter;
+
+let mut s = String::from("path");
+
+file_separator_in_place!(&mut s, concat!("to", slash_formatter::file_separator!()), concat!(slash_formatter::file_separator!(), "file", slash_formatter::file_separator!()));
+
+assert_eq!(slash_formatter::concat_with_file_separator!("path", "to", "file"), s);
+```
+*/
+#[macro_export]
+macro_rules! file_separator_in_place {
+    ($($t:tt)*) => {
+        $crate::slash_in_place!($($t)*)
+    };
+}
+
+#[cfg(windows)]
+/**
+Concatenate multiple strings with `FILE_SEPARATOR`. It can also be used to get the literal `FILE_SEPARATOR`.
+
+```
+#[macro_use] extern crate slash_formatter;
+
+let mut s = String::from("path");
+
+file_separator_in_place!(&mut s, concat!("to", slash_formatter::file_separator!()), concat!(slash_formatter::file_separator!(), "file", slash_formatter::file_separator!()));
+
+assert_eq!(slash_formatter::concat_with_file_separator!("path", "to", "file"), s);
+```
+*/
+#[macro_export]
+macro_rules! file_separator_in_place {
+    ($($t:tt)*) => {
+        $crate::backslash_in_place!($($t)*)
+    };
+}
+
+#[cfg(unix)]
+/**
+Concatenates literals into a static string slice separated by `FILE_SEPARATOR`. Prefixes and suffixes can also be added.
+
+```rust
+#[macro_use] extern crate slash_formatter;
+
+assert_eq!(concat!("test", slash_formatter::file_separator!(), 10, slash_formatter::file_separator!(), 'b', slash_formatter::file_separator!(), true), concat_with_file_separator!("test", 10, 'b', true));
 ```
 */
 #[macro_export]
 macro_rules! concat_with_file_separator {
-    ($s:expr, $($sc:expr), *) => {
-        {
-            let mut s = $s.to_owned();
-
-            $(
-                $crate::concat_with_file_separator_mut(&mut s, $sc);
-            )*
-
-            s
-        }
+    ($($t:tt)*) => {
+        $crate::concat_with_slash!($($t)*)
     };
 }
 
+#[cfg(windows)]
 /**
-Concatenate multiple strings with FILE_SEPARATORs.
+Concatenates literals into a static string slice separated by `FILE_SEPARATOR`. Prefixes and suffixes can also be added.
 
-```
+```rust
 #[macro_use] extern crate slash_formatter;
 
-if cfg!(windows) {
-    let mut s = String::from("path");
-
-    concat_with_file_separator_mut!(&mut s, r"to\", r"\file\");
-
-    assert_eq!(r"path\to\file", s);
-} else {
-    let mut s = String::from("path");
-
-    concat_with_file_separator_mut!(&mut s, "to/", "/file/");
-
-    assert_eq!("path/to/file", s);
-}
+assert_eq!(concat!("test", slash_formatter::file_separator!(), 10, slash_formatter::file_separator!(), 'b', slash_formatter::file_separator!(), true), concat_with_file_separator!("test", 10, 'b', true));
 ```
 */
 #[macro_export]
-macro_rules! concat_with_file_separator_mut {
-    ($s:expr, $($sc:expr), *) => {
-        {
-            $(
-                $crate::concat_with_file_separator_mut($s, $sc);
-            )*
-        }
+macro_rules! concat_with_file_separator {
+    ($($t:tt)*) => {
+        $crate::concat_with_backslash!($($t)*)
     };
 }

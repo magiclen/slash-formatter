@@ -1,3 +1,4 @@
+use alloc::borrow::Cow;
 use alloc::string::String;
 
 /// Delete an ending slash in a string except for '/'.
@@ -8,7 +9,7 @@ use alloc::string::String;
 /// assert_eq!("path", slash_formatter::delete_end_slash("path/"));
 /// ```
 #[inline]
-pub fn delete_end_slash<'a, S: ?Sized + AsRef<str> + 'a>(s: &'a S) -> &'a str {
+pub fn delete_end_slash<S: ?Sized + AsRef<str>>(s: &S) -> &str {
     let s = s.as_ref();
 
     let length = s.len();
@@ -25,38 +26,14 @@ pub fn delete_end_slash<'a, S: ?Sized + AsRef<str> + 'a>(s: &'a S) -> &'a str {
 /// ```
 /// extern crate slash_formatter;
 ///
-/// let s = String::from("path/");
-///
-/// let s = slash_formatter::delete_end_slash_owned(s);
-///
-/// assert_eq!("path", s);
-/// ```
-#[inline]
-pub fn delete_end_slash_owned<S: Into<String>>(s: S) -> String {
-    let mut s = s.into();
-
-    let length = s.len();
-
-    if length > 1 && s.ends_with('/') {
-        s.remove(length - 1);
-    }
-
-    s
-}
-
-/// Delete an ending slash in a string except for '/'.
-///
-/// ```
-/// extern crate slash_formatter;
-///
 /// let mut s = String::from("path/");
 ///
-/// slash_formatter::delete_end_slash_mut(&mut s);
+/// slash_formatter::delete_end_slash_in_place(&mut s);
 ///
 /// assert_eq!("path", s);
 /// ```
 #[inline]
-pub fn delete_end_slash_mut(s: &mut String) {
+pub fn delete_end_slash_in_place(s: &mut String) {
     let length = s.len();
 
     if length > 1 && s.ends_with('/') {
@@ -72,7 +49,7 @@ pub fn delete_end_slash_mut(s: &mut String) {
 /// assert_eq!("path", slash_formatter::delete_start_slash("/path"));
 /// ```
 #[inline]
-pub fn delete_start_slash<'a, S: ?Sized + AsRef<str> + 'a>(s: &'a S) -> &'a str {
+pub fn delete_start_slash<S: ?Sized + AsRef<str>>(s: &S) -> &str {
     let s = s.as_ref();
 
     let length = s.len();
@@ -89,38 +66,14 @@ pub fn delete_start_slash<'a, S: ?Sized + AsRef<str> + 'a>(s: &'a S) -> &'a str 
 /// ```
 /// extern crate slash_formatter;
 ///
-/// let s = String::from("/path");
-///
-/// let s = slash_formatter::delete_start_slash_owned(s);
-///
-/// assert_eq!("path", s);
-/// ```
-#[inline]
-pub fn delete_start_slash_owned<S: Into<String>>(s: S) -> String {
-    let mut s = s.into();
-
-    let length = s.len();
-
-    if length > 1 && s.starts_with('/') {
-        s.remove(0);
-    }
-
-    s
-}
-
-/// Delete a starting slash in a string except for '/'.
-///
-/// ```
-/// extern crate slash_formatter;
-///
 /// let mut s = String::from("/path");
 ///
-/// slash_formatter::delete_start_slash_mut(&mut s);
+/// slash_formatter::delete_start_slash_in_place(&mut s);
 ///
 /// assert_eq!("path", s);
 /// ```
 #[inline]
-pub fn delete_start_slash_mut(s: &mut String) {
+pub fn delete_start_slash_in_place(s: &mut String) {
     let length = s.len();
 
     if length > 1 && s.starts_with('/') {
@@ -136,30 +89,14 @@ pub fn delete_start_slash_mut(s: &mut String) {
 /// assert_eq!("/path", slash_formatter::add_start_slash("path"));
 /// ```
 #[inline]
-pub fn add_start_slash<S: AsRef<str>>(s: S) -> String {
-    add_start_slash_owned(s.as_ref())
-}
+pub fn add_start_slash<S: ?Sized + AsRef<str>>(s: &S) -> Cow<str> {
+    let s = s.as_ref();
 
-/// Add a starting slash into a string.
-///
-/// ```
-/// extern crate slash_formatter;
-///
-/// let s = String::from("path");
-///
-/// let s = slash_formatter::add_start_slash_owned(s);
-///
-/// assert_eq!("/path", s);
-/// ```
-#[inline]
-pub fn add_start_slash_owned<S: Into<String>>(s: S) -> String {
-    let mut s = s.into();
-
-    if !s.starts_with('/') {
-        s.insert(0, '/');
+    if s.starts_with('/') {
+        Cow::from(s)
+    } else {
+        Cow::from(format!("/{}", s))
     }
-
-    s
 }
 
 /// Add a starting slash into a string.
@@ -169,12 +106,12 @@ pub fn add_start_slash_owned<S: Into<String>>(s: S) -> String {
 ///
 /// let mut s = String::from("path");
 ///
-/// slash_formatter::add_start_slash_mut(&mut s);
+/// slash_formatter::add_start_slash_in_place(&mut s);
 ///
 /// assert_eq!("/path", s);
 /// ```
 #[inline]
-pub fn add_start_slash_mut(s: &mut String) {
+pub fn add_start_slash_in_place(s: &mut String) {
     if !s.starts_with('/') {
         s.insert(0, '/');
     }
@@ -188,30 +125,14 @@ pub fn add_start_slash_mut(s: &mut String) {
 /// assert_eq!("path/", slash_formatter::add_end_slash("path"));
 /// ```
 #[inline]
-pub fn add_end_slash<S: AsRef<str>>(s: S) -> String {
-    add_end_slash_owned(s.as_ref())
-}
+pub fn add_end_slash<S: ?Sized + AsRef<str>>(s: &S) -> Cow<str> {
+    let s = s.as_ref();
 
-/// Add an ending slash into a string.
-///
-/// ```
-/// extern crate slash_formatter;
-///
-/// let s = String::from("path");
-///
-/// let s = slash_formatter::add_end_slash_owned(s);
-///
-/// assert_eq!("path/", s);
-/// ```
-#[inline]
-pub fn add_end_slash_owned<S: Into<String>>(s: S) -> String {
-    let mut s = s.into();
-
-    if !s.ends_with('/') {
-        s.push('/');
+    if s.ends_with('/') {
+        Cow::from(s)
+    } else {
+        Cow::from(format!("{}/", s))
     }
-
-    s
 }
 
 /// Add an ending slash into a string.
@@ -221,12 +142,12 @@ pub fn add_end_slash_owned<S: Into<String>>(s: S) -> String {
 ///
 /// let mut s = String::from("path");
 ///
-/// slash_formatter::add_end_slash_mut(&mut s);
+/// slash_formatter::add_end_slash_in_place(&mut s);
 ///
 /// assert_eq!("path/", s);
 /// ```
 #[inline]
-pub fn add_end_slash_mut(s: &mut String) {
+pub fn add_end_slash_in_place(s: &mut String) {
     if !s.ends_with('/') {
         s.push('/');
     }
@@ -240,24 +161,12 @@ pub fn add_end_slash_mut(s: &mut String) {
 /// assert_eq!("path/to", slash_formatter::concat_with_slash("path", "to/"));
 /// ```
 #[inline]
-pub fn concat_with_slash<S1: AsRef<str>, S2: AsRef<str>>(s1: S1, s2: S2) -> String {
-    concat_with_slash_owned(s1.as_ref(), s2)
-}
+pub fn concat_with_slash<S1: Into<String>, S2: AsRef<str>>(s1: S1, s2: S2) -> String {
+    let mut s1 = s1.into();
 
-/// Concatenate two strings with a slash.
-///
-/// ```
-/// extern crate slash_formatter;
-///
-/// let s = String::from("path");
-///
-/// let s = slash_formatter::concat_with_slash_owned(s, "to/");
-///
-/// assert_eq!("path/to", s);
-/// ```
-#[inline]
-pub fn concat_with_slash_owned<S1: Into<String>, S2: AsRef<str>>(s1: S1, s2: S2) -> String {
-    delete_end_slash_owned(add_end_slash_owned(s1) + delete_start_slash(s2.as_ref()))
+    concat_with_slash_in_place(&mut s1, s2);
+
+    s1
 }
 
 /// Concatenate two strings with a slash.
@@ -267,40 +176,43 @@ pub fn concat_with_slash_owned<S1: Into<String>, S2: AsRef<str>>(s1: S1, s2: S2)
 ///
 /// let mut s = String::from("path");
 ///
-/// slash_formatter::concat_with_slash_mut(&mut s, "to/");
+/// slash_formatter::concat_with_slash_in_place(&mut s, "to/");
 ///
 /// assert_eq!("path/to", s);
 /// ```
 #[inline]
-pub fn concat_with_slash_mut<S2: AsRef<str>>(s1: &mut String, s2: S2) {
-    add_end_slash_mut(s1);
+pub fn concat_with_slash_in_place<S2: AsRef<str>>(s1: &mut String, s2: S2) {
+    add_end_slash_in_place(s1);
     s1.push_str(delete_start_slash(s2.as_ref()));
-    delete_end_slash_mut(s1);
+    delete_end_slash_in_place(s1);
 }
 
 /**
-Concatenate multiple strings with slashes.
+Concatenate multiple strings with slashes. It can also be used to get the literal `'/'`.
 
 ```
 #[macro_use] extern crate slash_formatter;
 
-assert_eq!("path/to/file", concat_with_slash!("path", "to/", "/file/"));
+assert_eq!("path/to/file", slash!("path", "to/", "/file/"));
 
 let s = String::from("path");
 
-let s = concat_with_slash!(s, "to/", "/file/");
+let s = slash!(s, "to/", "/file/");
 
 assert_eq!("path/to/file", s);
 ```
 */
 #[macro_export]
-macro_rules! concat_with_slash {
-    ($s:expr, $($sc:expr), *) => {
+macro_rules! slash {
+    () => {
+        '/'
+    };
+    ($s:expr $(, $sc:expr)* $(,)*) => {
         {
             let mut s = $s.to_owned();
 
             $(
-                $crate::concat_with_slash_mut(&mut s, $sc);
+                $crate::concat_with_slash_in_place(&mut s, $sc);
             )*
 
             s
@@ -309,25 +221,56 @@ macro_rules! concat_with_slash {
 }
 
 /**
-Concatenate multiple strings with slashes.
+Concatenate multiple strings with slashes. It can also be used to get the literal `'/'`.
 
 ```
 #[macro_use] extern crate slash_formatter;
 
 let mut s = String::from("path");
 
-concat_with_slash_mut!(&mut s, "to/", "/file/");
+slash_in_place!(&mut s, "to/", "/file/");
 
 assert_eq!("path/to/file", s);
 ```
 */
 #[macro_export]
-macro_rules! concat_with_slash_mut {
-    ($s:expr, $($sc:expr), *) => {
+macro_rules! slash_in_place {
+    () => {
+        '/'
+    };
+    ($s:expr $(, $sc:expr)* $(,)*) => {
         {
             $(
-                $crate::concat_with_slash_mut($s, $sc);
+                $crate::concat_with_slash_in_place($s, $sc);
             )*
         }
+    };
+}
+
+/**
+Concatenates literals into a static string slice separated by a slash. Prefixes and suffixes can also be added.
+
+```rust
+#[macro_use] extern crate slash_formatter;
+
+assert_eq!("test/10/b/true", concat_with_slash!("test", 10, 'b', true));
+```
+*/
+#[macro_export]
+macro_rules! concat_with_slash {
+    ($($e:expr),* $(,)*) => {
+        $crate::concat_with::concat!(with "/" $(, $e)*)
+    };
+    (prefix $p:expr $(, $e:expr)* $(,)*) => {
+        $crate::concat_with::concat!(with "/", prefix $p $(, $e)*)
+    };
+    (suffix $s:expr $(, $e:expr)* $(,)*) => {
+        $crate::concat_with::concat!(with "/", suffix $s $(, $e)*)
+    };
+    (prefix $p:expr, suffix $s:expr $(, $e:expr)* $(,)*) => {
+        $crate::concat_with::concat!(with "/", prefix $p, suffix $s $(, $e)*)
+    };
+    (suffix $s:expr, prefix $p:expr $(, $e:expr)* $(,)*) => {
+        $crate::concat_with::concat!(with "/", prefix $p, suffix $s $(, $e)*)
     };
 }
