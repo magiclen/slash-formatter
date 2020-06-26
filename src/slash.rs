@@ -15,7 +15,7 @@ pub fn delete_end_slash<S: ?Sized + AsRef<str>>(s: &S) -> &str {
     let length = s.len();
 
     if length > 1 && s.ends_with('/') {
-        &s[..length - 1]
+        unsafe { s.get_unchecked(..length - 1) }
     } else {
         s
     }
@@ -37,7 +37,9 @@ pub fn delete_end_slash_in_place(s: &mut String) {
     let length = s.len();
 
     if length > 1 && s.ends_with('/') {
-        s.remove(length - 1);
+        unsafe {
+            s.as_mut_vec().set_len(length - 1);
+        }
     }
 }
 
@@ -55,7 +57,7 @@ pub fn delete_start_slash<S: ?Sized + AsRef<str>>(s: &S) -> &str {
     let length = s.len();
 
     if length > 1 && s.starts_with('/') {
-        &s[1..]
+        unsafe { s.get_unchecked(1..) }
     } else {
         s
     }
