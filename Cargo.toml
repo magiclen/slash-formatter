@@ -1,6 +1,6 @@
 [package]
 name = "slash-formatter"
-version = "3.0.1"
+version = "3.0.2"
 authors = ["Magic Len <len@magiclen.org>"]
 edition = "2018"
 repository = "https://github.com/magiclen/slash-formatter"
@@ -10,6 +10,7 @@ categories = ["no-std", "value-formatting"]
 description= "This crate provides functions to deal with slashes and backslashes in strings."
 readme = "README.md"
 license = "MIT"
+include = ["src/**/*", "Cargo.toml"]
 
 [badges.travis-ci]
 repository = "magiclen/slash-formatter"
