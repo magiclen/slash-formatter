@@ -1,7 +1,7 @@
 use alloc::borrow::Cow;
 use alloc::string::String;
 
-/// Delete an ending `FILE_SEPARATOR` a string except for just `FILE_SEPARATOR`.
+/// Delete an ending `FILE_SEPARATOR` in a string except for just `FILE_SEPARATOR`.
 ///
 /// ```
 /// extern crate slash_formatter;
@@ -27,7 +27,7 @@ pub fn delete_end_file_separator<S: ?Sized + AsRef<str>>(s: &S) -> &str {
     }
 }
 
-/// Delete an ending `FILE_SEPARATOR` a string except for just `FILE_SEPARATOR`.
+/// Delete an ending `FILE_SEPARATOR` in a string except for just `FILE_SEPARATOR`.
 ///
 /// ```
 /// extern crate slash_formatter;
@@ -51,7 +51,7 @@ pub fn delete_end_file_separator_in_place(s: &mut String) {
     }
 }
 
-/// Delete a starting `FILE_SEPARATOR` a string except for just `FILE_SEPARATOR`.
+/// Delete a starting `FILE_SEPARATOR` in a string except for just `FILE_SEPARATOR`.
 ///
 /// ```
 /// extern crate slash_formatter;
@@ -77,7 +77,7 @@ pub fn delete_start_file_separator<S: ?Sized + AsRef<str>>(s: &S) -> &str {
     }
 }
 
-/// Delete a starting `FILE_SEPARATOR` a string except for just `FILE_SEPARATOR`.
+/// Delete a starting `FILE_SEPARATOR` in a string except for just `FILE_SEPARATOR`.
 ///
 /// ```
 /// extern crate slash_formatter;

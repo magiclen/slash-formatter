@@ -256,6 +256,5 @@ concat_impl! {
     ///
     /// assert_eq!("test/10/b/true", concat_with_slash!("test", 10, 'b', true));
     /// ```
-    /// */
     concat_with_slash => "/"
 }

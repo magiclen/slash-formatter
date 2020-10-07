@@ -18,10 +18,12 @@ extern crate concat_with;
 
 mod backslash;
 mod file_separator;
+mod file_separator_build;
 mod slash;
 
 pub use backslash::*;
 pub use file_separator::*;
+pub use file_separator_build::*;
 pub use slash::*;
 
 #[doc(hidden)]
