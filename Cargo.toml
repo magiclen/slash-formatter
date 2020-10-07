@@ -10,7 +10,7 @@ categories = ["no-std", "value-formatting"]
 description = "This crate provides functions to deal with slashes and backslashes in strings."
 readme = "README.md"
 license = "MIT"
-include = ["src/**/*", "Cargo.toml", "README.md", "LICENSE"]
+include = ["src/**/*", "build.rs", "Cargo.toml", "README.md", "LICENSE"]
 
 [badges.travis-ci]
 repository = "magiclen/slash-formatter"
