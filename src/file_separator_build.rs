@@ -375,7 +375,7 @@ macro_rules! concat_with_file_separator_build {
 
 #[cfg(debug_assertions)]
 /**
-Concatenates literals into a static string slice separated by file separators which dependents on the target OS if in debug mode, or dependents on the workstation if in release mode. Prefixes and suffixes can also be added.
+Concatenates literals into a static string slice separated by file separators which depends on the target OS if in debug mode, or depends on the workstation if in release mode. Prefixes and suffixes can also be added.
 
 ```
 #[macro_use] extern crate slash_formatter;
