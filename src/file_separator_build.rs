@@ -4,8 +4,6 @@ use alloc::string::String;
 /// Delete an ending ``FILE_SEPARATOR_ON_WORKSTATION`` in a string except for just ``FILE_SEPARATOR_ON_WORKSTATION``.
 ///
 /// ```
-/// extern crate slash_formatter;
-///
 /// assert_eq!(
 ///     "path",
 ///     slash_formatter::delete_end_file_separator_build(concat!(
@@ -30,8 +28,6 @@ pub fn delete_end_file_separator_build<S: ?Sized + AsRef<str>>(s: &S) -> &str {
 /// Delete an ending ``FILE_SEPARATOR_ON_WORKSTATION`` in a string except for just ``FILE_SEPARATOR_ON_WORKSTATION``.
 ///
 /// ```
-/// extern crate slash_formatter;
-///
 /// let mut s = String::from(concat!("path", slash_formatter::file_separator_build!()));
 ///
 /// slash_formatter::delete_end_file_separator_build_in_place(&mut s);
@@ -54,8 +50,6 @@ pub fn delete_end_file_separator_build_in_place(s: &mut String) {
 /// Delete a starting ``FILE_SEPARATOR_ON_WORKSTATION`` in a string except for just ``FILE_SEPARATOR_ON_WORKSTATION``.
 ///
 /// ```
-/// extern crate slash_formatter;
-///
 /// assert_eq!(
 ///     "path",
 ///     slash_formatter::delete_start_file_separator_build(concat!(
@@ -80,8 +74,6 @@ pub fn delete_start_file_separator_build<S: ?Sized + AsRef<str>>(s: &S) -> &str 
 /// Delete a starting ``FILE_SEPARATOR_ON_WORKSTATION`` in a string except for just ``FILE_SEPARATOR_ON_WORKSTATION``.
 ///
 /// ```
-/// extern crate slash_formatter;
-///
 /// let mut s = String::from(concat!(slash_formatter::file_separator_build!(), "path"));
 ///
 /// slash_formatter::delete_start_file_separator_build_in_place(&mut s);
@@ -104,8 +96,6 @@ pub fn delete_start_file_separator_build_in_place(s: &mut String) {
 /// Add a starting ``FILE_SEPARATOR_ON_WORKSTATION`` into a string.
 ///
 /// ```
-/// extern crate slash_formatter;
-///
 /// assert_eq!(
 ///     concat!(slash_formatter::file_separator_build!(), "path"),
 ///     slash_formatter::add_start_file_separator_build("path")
@@ -127,8 +117,6 @@ pub fn add_start_file_separator_build<S: ?Sized + AsRef<str>>(s: &S) -> Cow<str>
 /// Add a starting ``FILE_SEPARATOR_ON_WORKSTATION`` into a string.
 ///
 /// ```
-/// extern crate slash_formatter;
-///
 /// let mut s = String::from("path");
 ///
 /// slash_formatter::add_start_file_separator_build_in_place(&mut s);
@@ -151,8 +139,6 @@ pub fn add_start_file_separator_build_in_place(s: &mut String) {
 /// Add an ending ``FILE_SEPARATOR_ON_WORKSTATION`` into a string.
 ///
 /// ```
-/// extern crate slash_formatter;
-///
 /// assert_eq!(
 ///     concat!("path", slash_formatter::file_separator_build!()),
 ///     slash_formatter::add_end_file_separator_build("path")
@@ -174,8 +160,6 @@ pub fn add_end_file_separator_build<S: ?Sized + AsRef<str>>(s: &S) -> Cow<str> {
 /// Add an ending ``FILE_SEPARATOR_ON_WORKSTATION`` into a string.
 ///
 /// ```
-/// extern crate slash_formatter;
-///
 /// let mut s = String::from("path");
 ///
 /// slash_formatter::add_end_file_separator_build_in_place(&mut s);
@@ -198,8 +182,6 @@ pub fn add_end_file_separator_build_in_place(s: &mut String) {
 /// Concatenate two strings with ``FILE_SEPARATOR_ON_WORKSTATION``.
 ///
 /// ```
-/// extern crate slash_formatter;
-///
 /// assert_eq!(
 ///     concat!("path", slash_formatter::file_separator_build!(), "to"),
 ///     slash_formatter::concat_with_file_separator_build(
@@ -227,8 +209,6 @@ pub fn concat_with_file_separator_build<S1: Into<String>, S2: AsRef<str>>(
 /// Concatenate two strings with ``FILE_SEPARATOR_ON_WORKSTATION``.
 ///
 /// ```
-/// extern crate slash_formatter;
-///
 /// let mut s = String::from("path");
 ///
 /// slash_formatter::concat_with_file_separator_build_in_place(

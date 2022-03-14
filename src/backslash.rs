@@ -4,8 +4,6 @@ use alloc::string::String;
 /// Delete an ending backslash in a string except for '\\\\'.
 ///
 /// ```
-/// extern crate slash_formatter;
-///
 /// assert_eq!("path", slash_formatter::delete_end_backslash("path\\"));
 /// ```
 #[inline]
@@ -24,8 +22,6 @@ pub fn delete_end_backslash<S: ?Sized + AsRef<str>>(s: &S) -> &str {
 /// Delete an ending backslash in a string except for '\\\\'.
 ///
 /// ```
-/// extern crate slash_formatter;
-///
 /// let mut s = String::from("path\\");
 ///
 /// slash_formatter::delete_end_backslash_in_place(&mut s);
@@ -46,8 +42,6 @@ pub fn delete_end_backslash_in_place(s: &mut String) {
 /// Delete a starting backslash in a string except for '\\\\'.
 ///
 /// ```
-/// extern crate slash_formatter;
-///
 /// assert_eq!("path", slash_formatter::delete_start_backslash("\\path"));
 /// ```
 #[inline]
@@ -66,8 +60,6 @@ pub fn delete_start_backslash<S: ?Sized + AsRef<str>>(s: &S) -> &str {
 /// Delete a starting backslash in a string except for '\\\\'.
 ///
 /// ```
-/// extern crate slash_formatter;
-///
 /// let mut s = String::from("\\path");
 ///
 /// slash_formatter::delete_start_backslash_in_place(&mut s);
@@ -86,8 +78,6 @@ pub fn delete_start_backslash_in_place(s: &mut String) {
 /// Add a starting backslash into a string.
 ///
 /// ```
-/// extern crate slash_formatter;
-///
 /// assert_eq!("\\path", slash_formatter::add_start_backslash("path"));
 /// ```
 #[inline]
@@ -104,8 +94,6 @@ pub fn add_start_backslash<S: ?Sized + AsRef<str>>(s: &S) -> Cow<str> {
 /// Add a starting backslash into a string.
 ///
 /// ```
-/// extern crate slash_formatter;
-///
 /// let mut s = String::from("path");
 ///
 /// slash_formatter::add_start_backslash_in_place(&mut s);
@@ -122,8 +110,6 @@ pub fn add_start_backslash_in_place(s: &mut String) {
 /// Add an ending backslash into a string.
 ///
 /// ```
-/// extern crate slash_formatter;
-///
 /// assert_eq!("path\\", slash_formatter::add_end_backslash("path"));
 /// ```
 #[inline]
@@ -140,8 +126,6 @@ pub fn add_end_backslash<S: ?Sized + AsRef<str>>(s: &S) -> Cow<str> {
 /// Add an ending backslash into a string.
 ///
 /// ```
-/// extern crate slash_formatter;
-///
 /// let mut s = String::from("path");
 ///
 /// slash_formatter::add_end_backslash_in_place(&mut s);
@@ -158,8 +142,6 @@ pub fn add_end_backslash_in_place(s: &mut String) {
 /// Concatenate two strings with a backslash.
 ///
 /// ```
-/// extern crate slash_formatter;
-///
 /// assert_eq!("path\\to", slash_formatter::concat_with_backslash("path", "to\\"));
 /// ```
 #[inline]
@@ -174,8 +156,6 @@ pub fn concat_with_backslash<S1: Into<String>, S2: AsRef<str>>(s1: S1, s2: S2) -
 /// Concatenate two strings with a backslash.
 ///
 /// ```
-/// extern crate slash_formatter;
-///
 /// let mut s = String::from("path");
 ///
 /// slash_formatter::concat_with_backslash_in_place(&mut s, "to\\");
