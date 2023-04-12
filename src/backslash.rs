@@ -1,5 +1,4 @@
-use alloc::borrow::Cow;
-use alloc::string::String;
+use alloc::{borrow::Cow, string::String};
 
 /// Delete an ending backslash in a string except for '\\\\'.
 ///
@@ -142,7 +141,10 @@ pub fn add_end_backslash_in_place(s: &mut String) {
 /// Concatenate two strings with a backslash.
 ///
 /// ```
-/// assert_eq!("path\\to", slash_formatter::concat_with_backslash("path", "to\\"));
+/// assert_eq!(
+///     "path\\to",
+///     slash_formatter::concat_with_backslash("path", "to\\")
+/// );
 /// ```
 #[inline]
 pub fn concat_with_backslash<S1: Into<String>, S2: AsRef<str>>(s1: S1, s2: S2) -> String {

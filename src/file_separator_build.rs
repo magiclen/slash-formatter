@@ -1,5 +1,4 @@
-use alloc::borrow::Cow;
-use alloc::string::String;
+use alloc::{borrow::Cow, string::String};
 
 /// Delete an ending ``FILE_SEPARATOR_ON_WORKSTATION`` in a string except for just ``FILE_SEPARATOR_ON_WORKSTATION``.
 ///
@@ -28,7 +27,8 @@ pub fn delete_end_file_separator_build<S: ?Sized + AsRef<str>>(s: &S) -> &str {
 /// Delete an ending ``FILE_SEPARATOR_ON_WORKSTATION`` in a string except for just ``FILE_SEPARATOR_ON_WORKSTATION``.
 ///
 /// ```
-/// let mut s = String::from(concat!("path", slash_formatter::file_separator_build!()));
+/// let mut s =
+///     String::from(concat!("path", slash_formatter::file_separator_build!()));
 ///
 /// slash_formatter::delete_end_file_separator_build_in_place(&mut s);
 ///
@@ -74,7 +74,8 @@ pub fn delete_start_file_separator_build<S: ?Sized + AsRef<str>>(s: &S) -> &str 
 /// Delete a starting ``FILE_SEPARATOR_ON_WORKSTATION`` in a string except for just ``FILE_SEPARATOR_ON_WORKSTATION``.
 ///
 /// ```
-/// let mut s = String::from(concat!(slash_formatter::file_separator_build!(), "path"));
+/// let mut s =
+///     String::from(concat!(slash_formatter::file_separator_build!(), "path"));
 ///
 /// slash_formatter::delete_start_file_separator_build_in_place(&mut s);
 ///
@@ -216,7 +217,10 @@ pub fn concat_with_file_separator_build<S1: Into<String>, S2: AsRef<str>>(
 ///     concat!("to", slash_formatter::file_separator_build!()),
 /// );
 ///
-/// assert_eq!(concat!("path", slash_formatter::file_separator_build!(), "to"), s);
+/// assert_eq!(
+///     concat!("path", slash_formatter::file_separator_build!(), "to"),
+///     s
+/// );
 /// ```
 #[inline]
 pub fn concat_with_file_separator_build_in_place<S2: AsRef<str>>(s1: &mut String, s2: S2) {

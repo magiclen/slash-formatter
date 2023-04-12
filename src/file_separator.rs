@@ -1,5 +1,4 @@
-use alloc::borrow::Cow;
-use alloc::string::String;
+use alloc::{borrow::Cow, string::String};
 
 /// Delete an ending `FILE_SEPARATOR` in a string except for just `FILE_SEPARATOR`.
 ///
@@ -28,7 +27,8 @@ pub fn delete_end_file_separator<S: ?Sized + AsRef<str>>(s: &S) -> &str {
 /// Delete an ending `FILE_SEPARATOR` in a string except for just `FILE_SEPARATOR`.
 ///
 /// ```
-/// let mut s = String::from(concat!("path", slash_formatter::file_separator!()));
+/// let mut s =
+///     String::from(concat!("path", slash_formatter::file_separator!()));
 ///
 /// slash_formatter::delete_end_file_separator_in_place(&mut s);
 ///
@@ -74,7 +74,8 @@ pub fn delete_start_file_separator<S: ?Sized + AsRef<str>>(s: &S) -> &str {
 /// Delete a starting `FILE_SEPARATOR` in a string except for just `FILE_SEPARATOR`.
 ///
 /// ```
-/// let mut s = String::from(concat!(slash_formatter::file_separator!(), "path"));
+/// let mut s =
+///     String::from(concat!(slash_formatter::file_separator!(), "path"));
 ///
 /// slash_formatter::delete_start_file_separator_in_place(&mut s);
 ///

@@ -1,5 +1,4 @@
-use alloc::borrow::Cow;
-use alloc::string::String;
+use alloc::{borrow::Cow, string::String};
 
 /// Delete an ending slash in a string except for '/'.
 ///

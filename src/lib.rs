@@ -22,9 +22,8 @@ mod file_separator_build;
 mod slash;
 
 pub use backslash::*;
+#[doc(hidden)]
+pub use concat_with::{concat, concat_impl};
 pub use file_separator::*;
 pub use file_separator_build::*;
 pub use slash::*;
-
-#[doc(hidden)]
-pub use concat_with::{concat, concat_impl};
