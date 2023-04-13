@@ -9,7 +9,6 @@ homepage = "https://magiclen.org/slash-formatter"
 keywords = ["slash", "url", "path", "string", "backslash"]
 categories = ["no-std", "value-formatting"]
 description = "This crate provides functions to deal with slashes and backslashes in strings."
-readme = "README.md"
 license = "MIT"
 include = ["src/**/*", "build.rs", "Cargo.toml", "README.md", "LICENSE"]
 
