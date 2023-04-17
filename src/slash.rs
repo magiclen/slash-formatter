@@ -32,7 +32,7 @@ pub fn delete_end_slash_in_place(s: &mut String) {
     let length = s.len();
 
     if length > 1 && s.ends_with('/') {
-        unsafe { s.as_mut_vec() }.truncate(length - 1);
+        s.truncate(length - 1);
     }
 }
 
