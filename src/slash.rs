@@ -172,13 +172,11 @@ pub fn concat_with_slash_in_place<S2: AsRef<str>>(s1: &mut String, s2: S2) {
 Concatenate multiple strings with slashes. It can also be used to get the literal `'/'`.
 
 ```
-#[macro_use] extern crate slash_formatter;
-
-assert_eq!("path/to/file", slash!("path", "to/", "/file/"));
+assert_eq!("path/to/file", slash_formatter::slash!("path", "to/", "/file/"));
 
 let s = String::from("path");
 
-let s = slash!(s, "to/", "/file/");
+let s = slash_formatter::slash!(s, "to/", "/file/");
 
 assert_eq!("path/to/file", s);
 ```
@@ -205,11 +203,9 @@ macro_rules! slash {
 Concatenate multiple strings with slashes. It can also be used to get the literal `'/'`.
 
 ```
-#[macro_use] extern crate slash_formatter;
-
 let mut s = String::from("path");
 
-slash_in_place!(&mut s, "to/", "/file/");
+slash_formatter::slash_in_place!(&mut s, "to/", "/file/");
 
 assert_eq!("path/to/file", s);
 ```
@@ -226,14 +222,12 @@ macro_rules! slash_in_place {
     };
 }
 
-concat_impl! {
+concat_with::concat_impl! {
     #[macro_export]
     /// Concatenates literals into a static string slice separated by a slash. Prefixes and suffixes can also be added.
     ///
     /// ```rust
-    /// #[macro_use] extern crate slash_formatter;
-    ///
-    /// assert_eq!("test/10/b/true", concat_with_slash!("test", 10, 'b', true));
+    /// assert_eq!("test/10/b/true", slash_formatter::concat_with_slash!("test", 10, 'b', true));
     /// ```
     concat_with_slash => "/"
 }

@@ -240,13 +240,11 @@ pub fn concat_with_file_separator_build_in_place<S2: AsRef<str>>(s1: &mut String
 Concatenate multiple strings with ``FILE_SEPARATOR_ON_WORKSTATION``. It can also be used to get the literal ``FILE_SEPARATOR_ON_WORKSTATION``.
 
 ```
-#[macro_use] extern crate slash_formatter;
-
-assert_eq!(slash_formatter::concat_with_file_separator_build!("path", "to", "file"), file_separator_build!("path", concat!("to", slash_formatter::file_separator_build!()), concat!(slash_formatter::file_separator_build!(), "file", slash_formatter::file_separator_build!())));
+assert_eq!(slash_formatter::concat_with_file_separator_build!("path", "to", "file"), slash_formatter::file_separator_build!("path", concat!("to", slash_formatter::file_separator_build!()), concat!(slash_formatter::file_separator_build!(), "file", slash_formatter::file_separator_build!())));
 
 let s = String::from("path");
 
-let s = file_separator_build!(s, concat!("to", slash_formatter::file_separator_build!()), concat!(slash_formatter::file_separator_build!(), "file", slash_formatter::file_separator_build!()));
+let s = slash_formatter::file_separator_build!(s, concat!("to", slash_formatter::file_separator_build!()), concat!(slash_formatter::file_separator_build!(), "file", slash_formatter::file_separator_build!()));
 
 assert_eq!(slash_formatter::concat_with_file_separator_build!("path", "to", "file"), s);
 ```
@@ -263,13 +261,11 @@ macro_rules! file_separator_build {
 Concatenate multiple strings with ``FILE_SEPARATOR_ON_WORKSTATION``. It can also be used to get the literal ``FILE_SEPARATOR_ON_WORKSTATION``.
 
 ```
-#[macro_use] extern crate slash_formatter;
-
-assert_eq!(slash_formatter::concat_with_file_separator_build!("path", "to", "file"), file_separator_build!("path", concat!("to", slash_formatter::file_separator_build!()), concat!(slash_formatter::file_separator_build!(), "file", slash_formatter::file_separator_build!())));
+assert_eq!(slash_formatter::concat_with_file_separator_build!("path", "to", "file"), slash_formatter::file_separator_build!("path", concat!("to", slash_formatter::file_separator_build!()), concat!(slash_formatter::file_separator_build!(), "file", slash_formatter::file_separator_build!())));
 
 let s = String::from("path");
 
-let s = file_separator_build!(s, concat!("to", slash_formatter::file_separator_build!()), concat!(slash_formatter::file_separator_build!(), "file", slash_formatter::file_separator_build!()));
+let s = slash_formatter::file_separator_build!(s, concat!("to", slash_formatter::file_separator_build!()), concat!(slash_formatter::file_separator_build!(), "file", slash_formatter::file_separator_build!()));
 
 assert_eq!(slash_formatter::concat_with_file_separator_build!("path", "to", "file"), s);
 ```
@@ -286,11 +282,9 @@ macro_rules! file_separator_build {
 Concatenate multiple strings with ``FILE_SEPARATOR_ON_WORKSTATION``. It can also be used to get the literal ``FILE_SEPARATOR_ON_WORKSTATION``.
 
 ```
-#[macro_use] extern crate slash_formatter;
-
 let mut s = String::from("path");
 
-file_separator_build_in_place!(&mut s, concat!("to", slash_formatter::file_separator_build!()), concat!(slash_formatter::file_separator_build!(), "file", slash_formatter::file_separator_build!()));
+slash_formatter::file_separator_build_in_place!(&mut s, concat!("to", slash_formatter::file_separator_build!()), concat!(slash_formatter::file_separator_build!(), "file", slash_formatter::file_separator_build!()));
 
 assert_eq!(slash_formatter::concat_with_file_separator_build!("path", "to", "file"), s);
 ```
@@ -307,11 +301,9 @@ macro_rules! file_separator_build_in_place {
 Concatenate multiple strings with ``FILE_SEPARATOR_ON_WORKSTATION``. It can also be used to get the literal ``FILE_SEPARATOR_ON_WORKSTATION``.
 
 ```
-#[macro_use] extern crate slash_formatter;
-
 let mut s = String::from("path");
 
-file_separator_build_in_place!(&mut s, concat!("to", slash_formatter::file_separator_build!()), concat!(slash_formatter::file_separator_build!(), "file", slash_formatter::file_separator_build!()));
+slash_formatter::file_separator_build_in_place!(&mut s, concat!("to", slash_formatter::file_separator_build!()), concat!(slash_formatter::file_separator_build!(), "file", slash_formatter::file_separator_build!()));
 
 assert_eq!(slash_formatter::concat_with_file_separator_build!("path", "to", "file"), s);
 ```
@@ -328,9 +320,7 @@ macro_rules! file_separator_build_in_place {
 Concatenates literals into a static string slice separated by ``FILE_SEPARATOR_ON_WORKSTATION``. Prefixes and suffixes can also be added.
 
 ```
-#[macro_use] extern crate slash_formatter;
-
-assert_eq!(concat!("test", slash_formatter::file_separator_build!(), 10, slash_formatter::file_separator_build!(), 'b', slash_formatter::file_separator_build!(), true), concat_with_file_separator_build!("test", 10, 'b', true));
+assert_eq!(concat!("test", slash_formatter::file_separator_build!(), 10, slash_formatter::file_separator_build!(), 'b', slash_formatter::file_separator_build!(), true), slash_formatter::concat_with_file_separator_build!("test", 10, 'b', true));
 ```
 */
 #[macro_export]
@@ -345,9 +335,7 @@ macro_rules! concat_with_file_separator_build {
 Concatenates literals into a static string slice separated by ``FILE_SEPARATOR_ON_WORKSTATION``. Prefixes and suffixes can also be added.
 
 ```
-#[macro_use] extern crate slash_formatter;
-
-assert_eq!(concat!("test", slash_formatter::file_separator_build!(), 10, slash_formatter::file_separator_build!(), 'b', slash_formatter::file_separator_build!(), true), concat_with_file_separator_build!("test", 10, 'b', true));
+assert_eq!(concat!("test", slash_formatter::file_separator_build!(), 10, slash_formatter::file_separator_build!(), 'b', slash_formatter::file_separator_build!(), true), slash_formatter::concat_with_file_separator_build!("test", 10, 'b', true));
 ```
 */
 #[macro_export]
@@ -362,14 +350,12 @@ macro_rules! concat_with_file_separator_build {
 Concatenates literals into a static string slice separated by file separators which depends on the target OS if in debug mode, or depends on the workstation if in release mode. Prefixes and suffixes can also be added.
 
 ```
-#[macro_use] extern crate slash_formatter;
-
 if cfg!(debug_assertions) {
-    assert_eq!(concat!("test", slash_formatter::file_separator!(), 10, slash_formatter::file_separator!(), 'b', slash_formatter::file_separator!(), true), concat_with_file_separator_debug_release!("test", 10, 'b', true));
+    assert_eq!(concat!("test", slash_formatter::file_separator!(), 10, slash_formatter::file_separator!(), 'b', slash_formatter::file_separator!(), true), slash_formatter::concat_with_file_separator_debug_release!("test", 10, 'b', true));
 }
 
 if !cfg!(debug_assertions) {
-    assert_eq!(concat!("test", slash_formatter::file_separator_build!(), 10, slash_formatter::file_separator_build!(), 'b', slash_formatter::file_separator_build!(), true), concat_with_file_separator_debug_release!("test", 10, 'b', true));
+    assert_eq!(concat!("test", slash_formatter::file_separator_build!(), 10, slash_formatter::file_separator_build!(), 'b', slash_formatter::file_separator_build!(), true), slash_formatter::concat_with_file_separator_debug_release!("test", 10, 'b', true));
 }
 ```
 */
@@ -385,14 +371,12 @@ macro_rules! concat_with_file_separator_debug_release {
 Concatenates literals into a static string slice separated by file separators which dependents on the target OS if in debug mode, or dependents on the workstation if in release mode. Prefixes and suffixes can also be added.
 
 ```
-#[macro_use] extern crate slash_formatter;
-
 if cfg!(debug_assertions) {
-    assert_eq!(concat!("test", slash_formatter::file_separator!(), 10, slash_formatter::file_separator!(), 'b', slash_formatter::file_separator!(), true), concat_with_file_separator_debug_release!("test", 10, 'b', true));
+    assert_eq!(concat!("test", slash_formatter::file_separator!(), 10, slash_formatter::file_separator!(), 'b', slash_formatter::file_separator!(), true), slash_formatter::concat_with_file_separator_debug_release!("test", 10, 'b', true));
 }
 
 if !cfg!(debug_assertions) {
-    assert_eq!(concat!("test", slash_formatter::file_separator_build!(), 10, slash_formatter::file_separator_build!(), 'b', slash_formatter::file_separator_build!(), true), concat_with_file_separator_debug_release!("test", 10, 'b', true));
+    assert_eq!(concat!("test", slash_formatter::file_separator_build!(), 10, slash_formatter::file_separator_build!(), 'b', slash_formatter::file_separator_build!(), true), slash_formatter::concat_with_file_separator_debug_release!("test", 10, 'b', true));
 }
 ```
 */

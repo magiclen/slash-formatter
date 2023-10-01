@@ -234,13 +234,11 @@ pub fn concat_with_file_separator_in_place<S2: AsRef<str>>(s1: &mut String, s2: 
 Concatenate multiple strings with `FILE_SEPARATOR`. It can also be used to get the literal `FILE_SEPARATOR`.
 
 ```
-#[macro_use] extern crate slash_formatter;
-
-assert_eq!(slash_formatter::concat_with_file_separator!("path", "to", "file"), file_separator!("path", concat!("to", slash_formatter::file_separator!()), concat!(slash_formatter::file_separator!(), "file", slash_formatter::file_separator!())));
+assert_eq!(slash_formatter::concat_with_file_separator!("path", "to", "file"), slash_formatter::file_separator!("path", concat!("to", slash_formatter::file_separator!()), concat!(slash_formatter::file_separator!(), "file", slash_formatter::file_separator!())));
 
 let s = String::from("path");
 
-let s = file_separator!(s, concat!("to", slash_formatter::file_separator!()), concat!(slash_formatter::file_separator!(), "file", slash_formatter::file_separator!()));
+let s = slash_formatter::file_separator!(s, concat!("to", slash_formatter::file_separator!()), concat!(slash_formatter::file_separator!(), "file", slash_formatter::file_separator!()));
 
 assert_eq!(slash_formatter::concat_with_file_separator!("path", "to", "file"), s);
 ```
@@ -257,13 +255,11 @@ macro_rules! file_separator {
 Concatenate multiple strings with `FILE_SEPARATOR`. It can also be used to get the literal `FILE_SEPARATOR`.
 
 ```
-#[macro_use] extern crate slash_formatter;
-
-assert_eq!(slash_formatter::concat_with_file_separator!("path", "to", "file"), file_separator!("path", concat!("to", slash_formatter::file_separator!()), concat!(slash_formatter::file_separator!(), "file", slash_formatter::file_separator!())));
+assert_eq!(slash_formatter::concat_with_file_separator!("path", "to", "file"), slash_formatter::file_separator!("path", concat!("to", slash_formatter::file_separator!()), concat!(slash_formatter::file_separator!(), "file", slash_formatter::file_separator!())));
 
 let s = String::from("path");
 
-let s = file_separator!(s, concat!("to", slash_formatter::file_separator!()), concat!(slash_formatter::file_separator!(), "file", slash_formatter::file_separator!()));
+let s = slash_formatter::file_separator!(s, concat!("to", slash_formatter::file_separator!()), concat!(slash_formatter::file_separator!(), "file", slash_formatter::file_separator!()));
 
 assert_eq!(slash_formatter::concat_with_file_separator!("path", "to", "file"), s);
 ```
@@ -280,11 +276,9 @@ macro_rules! file_separator {
 Concatenate multiple strings with `FILE_SEPARATOR`. It can also be used to get the literal `FILE_SEPARATOR`.
 
 ```
-#[macro_use] extern crate slash_formatter;
-
 let mut s = String::from("path");
 
-file_separator_in_place!(&mut s, concat!("to", slash_formatter::file_separator!()), concat!(slash_formatter::file_separator!(), "file", slash_formatter::file_separator!()));
+slash_formatter::file_separator_in_place!(&mut s, concat!("to", slash_formatter::file_separator!()), concat!(slash_formatter::file_separator!(), "file", slash_formatter::file_separator!()));
 
 assert_eq!(slash_formatter::concat_with_file_separator!("path", "to", "file"), s);
 ```
@@ -301,11 +295,9 @@ macro_rules! file_separator_in_place {
 Concatenate multiple strings with `FILE_SEPARATOR`. It can also be used to get the literal `FILE_SEPARATOR`.
 
 ```
-#[macro_use] extern crate slash_formatter;
-
 let mut s = String::from("path");
 
-file_separator_in_place!(&mut s, concat!("to", slash_formatter::file_separator!()), concat!(slash_formatter::file_separator!(), "file", slash_formatter::file_separator!()));
+slash_formatter::file_separator_in_place!(&mut s, concat!("to", slash_formatter::file_separator!()), concat!(slash_formatter::file_separator!(), "file", slash_formatter::file_separator!()));
 
 assert_eq!(slash_formatter::concat_with_file_separator!("path", "to", "file"), s);
 ```
@@ -322,9 +314,7 @@ macro_rules! file_separator_in_place {
 Concatenates literals into a static string slice separated by `FILE_SEPARATOR`. Prefixes and suffixes can also be added.
 
 ```rust
-#[macro_use] extern crate slash_formatter;
-
-assert_eq!(concat!("test", slash_formatter::file_separator!(), 10, slash_formatter::file_separator!(), 'b', slash_formatter::file_separator!(), true), concat_with_file_separator!("test", 10, 'b', true));
+assert_eq!(concat!("test", slash_formatter::file_separator!(), 10, slash_formatter::file_separator!(), 'b', slash_formatter::file_separator!(), true), slash_formatter::concat_with_file_separator!("test", 10, 'b', true));
 ```
 */
 #[macro_export]
@@ -339,9 +329,7 @@ macro_rules! concat_with_file_separator {
 Concatenates literals into a static string slice separated by `FILE_SEPARATOR`. Prefixes and suffixes can also be added.
 
 ```rust
-#[macro_use] extern crate slash_formatter;
-
-assert_eq!(concat!("test", slash_formatter::file_separator!(), 10, slash_formatter::file_separator!(), 'b', slash_formatter::file_separator!(), true), concat_with_file_separator!("test", 10, 'b', true));
+assert_eq!(concat!("test", slash_formatter::file_separator!(), 10, slash_formatter::file_separator!(), 'b', slash_formatter::file_separator!(), true), slash_formatter::concat_with_file_separator!("test", 10, 'b', true));
 ```
 */
 #[macro_export]

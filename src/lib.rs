@@ -13,9 +13,6 @@ To see examples, check out the documentation for each function.
 #[macro_use]
 extern crate alloc;
 
-#[macro_use]
-extern crate concat_with;
-
 mod backslash;
 mod file_separator;
 mod file_separator_build;
